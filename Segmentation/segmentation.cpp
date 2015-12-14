@@ -1,18 +1,21 @@
 #include "segmentation.h"
-#include <QFileDialog>
 
 Segmentation::Segmentation(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	openRGB = new QAction(QIcon(":/images/file-open"), tr("Open RGB Image"), this);
+	openRGB->setStatusTip("Open an RGB image.");
+
+	openDepth = new QAction(QIcon(":/images/file-open"), tr("open Depth Image"), this);
+	openDepth->setStatusTip("Open a depth image.");
+
+	QMenu *file = menuBar()->addMenu(tr("File"));
+	file->addAction(openRGB);
+	file->addAction(openDepth);
 }
 
 Segmentation::~Segmentation()
 {
 
-}
-
-void Segmentation::on_OpenRGB_clicked() {
-	QString filePath = QFileDialog::getOpenFileName(this, "open");
-	RGBPath = filePath.toLocal8Bit().constData();
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>697</width>
-    <height>449</height>
+    <height>481</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>380</y>
+      <y>410</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -33,7 +33,7 @@
       <x>530</x>
       <y>10</y>
       <width>163</width>
-      <height>381</height>
+      <height>412</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -41,23 +41,26 @@
       <widget class="QListWidget" name="imageList"/>
      </item>
      <item>
-      <widget class="QPushButton" name="objButton">
-       <property name="text">
-        <string>set object color</string>
+      <widget class="QSlider" name="brushSizeSlider">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="bkgButton">
+      <widget class="QLabel" name="brushSizeText">
        <property name="text">
-        <string>set background color</string>
+        <string>Brush Size:</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="seedPathEdit"/>
      </item>
      <item>
       <widget class="QPushButton" name="seedButton">
        <property name="text">
-        <string>set seed path</string>
+        <string>seed path</string>
        </property>
       </widget>
      </item>
@@ -123,17 +126,69 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>511</width>
-      <height>361</height>
+      <height>20</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="RGBLabel">
+       <property name="text">
+        <string>RGB Image:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="depthLabel">
+       <property name="text">
+        <string>Depth Image:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>210</y>
+      <width>511</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="seedLabel">
+       <property name="text">
+        <string>Seed Image:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="resultLabel">
+       <property name="text">
+        <string>Result Image:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>29</y>
+      <width>511</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
       <widget class="QLabel" name="RGBImage">
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
@@ -143,21 +198,33 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item>
       <widget class="QLabel" name="depthImage">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>511</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
       <widget class="QLabel" name="seedImage">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item>
       <widget class="QLabel" name="resultImage">
        <property name="text">
         <string/>
@@ -166,24 +233,14 @@
      </item>
     </layout>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>697</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuOpen">
-    <property name="title">
-     <string>open</string>
-    </property>
-    <addaction name="OpenRGB"/>
-    <addaction name="OpenDepth"/>
-   </widget>
-   <addaction name="menuOpen"/>
+   <zorder>timeLabel</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>RGBLabel</zorder>
+   <zorder>seedLabel</zorder>
+   <zorder>depthLabel</zorder>
+   <zorder>resultLabel</zorder>
+   <zorder>depthLabel</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

@@ -13,16 +13,15 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -40,8 +39,9 @@ public:
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QListWidget *imageList;
-    QPushButton *objButton;
-    QPushButton *bkgButton;
+    QSlider *brushSizeSlider;
+    QLabel *brushSizeText;
+    QLineEdit *seedPathEdit;
     QPushButton *seedButton;
     QRadioButton *gcRadio;
     QRadioButton *gbRadio;
@@ -52,14 +52,22 @@ public:
     QRadioButton *hggRadio;
     QHBoxLayout *horizontalLayout;
     QPushButton *saveButton;
-    QWidget *layoutWidget1;
-    QGridLayout *gridLayout;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *RGBLabel;
+    QLabel *depthLabel;
+    QWidget *widget1;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *seedLabel;
+    QLabel *resultLabel;
+    QWidget *widget2;
+    QHBoxLayout *horizontalLayout_4;
     QLabel *RGBImage;
     QLabel *depthImage;
+    QWidget *widget3;
+    QHBoxLayout *horizontalLayout_5;
     QLabel *seedImage;
     QLabel *resultImage;
-    QMenuBar *menuBar;
-    QMenu *menuOpen;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -67,7 +75,7 @@ public:
     {
         if (SegmentationClass->objectName().isEmpty())
             SegmentationClass->setObjectName(QStringLiteral("SegmentationClass"));
-        SegmentationClass->resize(697, 449);
+        SegmentationClass->resize(697, 481);
         OpenRGB = new QAction(SegmentationClass);
         OpenRGB->setObjectName(QStringLiteral("OpenRGB"));
         OpenDepth = new QAction(SegmentationClass);
@@ -76,10 +84,10 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         timeLabel = new QLabel(centralWidget);
         timeLabel->setObjectName(QStringLiteral("timeLabel"));
-        timeLabel->setGeometry(QRect(10, 380, 54, 12));
+        timeLabel->setGeometry(QRect(10, 410, 54, 12));
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(530, 10, 163, 381));
+        layoutWidget->setGeometry(QRect(530, 10, 163, 412));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -90,15 +98,21 @@ public:
 
         verticalLayout->addWidget(imageList);
 
-        objButton = new QPushButton(layoutWidget);
-        objButton->setObjectName(QStringLiteral("objButton"));
+        brushSizeSlider = new QSlider(layoutWidget);
+        brushSizeSlider->setObjectName(QStringLiteral("brushSizeSlider"));
+        brushSizeSlider->setOrientation(Qt::Horizontal);
 
-        verticalLayout->addWidget(objButton);
+        verticalLayout->addWidget(brushSizeSlider);
 
-        bkgButton = new QPushButton(layoutWidget);
-        bkgButton->setObjectName(QStringLiteral("bkgButton"));
+        brushSizeText = new QLabel(layoutWidget);
+        brushSizeText->setObjectName(QStringLiteral("brushSizeText"));
 
-        verticalLayout->addWidget(bkgButton);
+        verticalLayout->addWidget(brushSizeText);
+
+        seedPathEdit = new QLineEdit(layoutWidget);
+        seedPathEdit->setObjectName(QStringLiteral("seedPathEdit"));
+
+        verticalLayout->addWidget(seedPathEdit);
 
         seedButton = new QPushButton(layoutWidget);
         seedButton->setObjectName(QStringLiteral("seedButton"));
@@ -151,52 +165,94 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        layoutWidget1 = new QWidget(centralWidget);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 10, 511, 361));
-        gridLayout = new QGridLayout(layoutWidget1);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        RGBImage = new QLabel(layoutWidget1);
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(10, 10, 511, 20));
+        horizontalLayout_2 = new QHBoxLayout(widget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        RGBLabel = new QLabel(widget);
+        RGBLabel->setObjectName(QStringLiteral("RGBLabel"));
+
+        horizontalLayout_2->addWidget(RGBLabel);
+
+        depthLabel = new QLabel(widget);
+        depthLabel->setObjectName(QStringLiteral("depthLabel"));
+
+        horizontalLayout_2->addWidget(depthLabel);
+
+        widget1 = new QWidget(centralWidget);
+        widget1->setObjectName(QStringLiteral("widget1"));
+        widget1->setGeometry(QRect(10, 210, 511, 20));
+        horizontalLayout_3 = new QHBoxLayout(widget1);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        seedLabel = new QLabel(widget1);
+        seedLabel->setObjectName(QStringLiteral("seedLabel"));
+
+        horizontalLayout_3->addWidget(seedLabel);
+
+        resultLabel = new QLabel(widget1);
+        resultLabel->setObjectName(QStringLiteral("resultLabel"));
+
+        horizontalLayout_3->addWidget(resultLabel);
+
+        widget2 = new QWidget(centralWidget);
+        widget2->setObjectName(QStringLiteral("widget2"));
+        widget2->setGeometry(QRect(9, 29, 511, 171));
+        horizontalLayout_4 = new QHBoxLayout(widget2);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        RGBImage = new QLabel(widget2);
         RGBImage->setObjectName(QStringLiteral("RGBImage"));
         RGBImage->setFrameShape(QFrame::NoFrame);
 
-        gridLayout->addWidget(RGBImage, 0, 0, 1, 1);
+        horizontalLayout_4->addWidget(RGBImage);
 
-        depthImage = new QLabel(layoutWidget1);
+        depthImage = new QLabel(widget2);
         depthImage->setObjectName(QStringLiteral("depthImage"));
 
-        gridLayout->addWidget(depthImage, 0, 1, 1, 1);
+        horizontalLayout_4->addWidget(depthImage);
 
-        seedImage = new QLabel(layoutWidget1);
+        widget3 = new QWidget(centralWidget);
+        widget3->setObjectName(QStringLiteral("widget3"));
+        widget3->setGeometry(QRect(10, 230, 511, 171));
+        horizontalLayout_5 = new QHBoxLayout(widget3);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        seedImage = new QLabel(widget3);
         seedImage->setObjectName(QStringLiteral("seedImage"));
 
-        gridLayout->addWidget(seedImage, 1, 0, 1, 1);
+        horizontalLayout_5->addWidget(seedImage);
 
-        resultImage = new QLabel(layoutWidget1);
+        resultImage = new QLabel(widget3);
         resultImage->setObjectName(QStringLiteral("resultImage"));
 
-        gridLayout->addWidget(resultImage, 1, 1, 1, 1);
+        horizontalLayout_5->addWidget(resultImage);
 
         SegmentationClass->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(SegmentationClass);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 697, 23));
-        menuOpen = new QMenu(menuBar);
-        menuOpen->setObjectName(QStringLiteral("menuOpen"));
-        SegmentationClass->setMenuBar(menuBar);
+        timeLabel->raise();
+        layoutWidget->raise();
+        layoutWidget->raise();
+        RGBLabel->raise();
+        seedLabel->raise();
+        depthLabel->raise();
+        resultLabel->raise();
+        depthLabel->raise();
         mainToolBar = new QToolBar(SegmentationClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
         SegmentationClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(SegmentationClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         SegmentationClass->setStatusBar(statusBar);
-
-        menuBar->addAction(menuOpen->menuAction());
-        menuOpen->addAction(OpenRGB);
-        menuOpen->addAction(OpenDepth);
 
         retranslateUi(SegmentationClass);
 
@@ -209,9 +265,8 @@ public:
         OpenRGB->setText(QApplication::translate("SegmentationClass", "open RGB", 0));
         OpenDepth->setText(QApplication::translate("SegmentationClass", "open Depth", 0));
         timeLabel->setText(QApplication::translate("SegmentationClass", "Time:", 0));
-        objButton->setText(QApplication::translate("SegmentationClass", "set object color", 0));
-        bkgButton->setText(QApplication::translate("SegmentationClass", "set background color", 0));
-        seedButton->setText(QApplication::translate("SegmentationClass", "set seed path", 0));
+        brushSizeText->setText(QApplication::translate("SegmentationClass", "Brush Size:", 0));
+        seedButton->setText(QApplication::translate("SegmentationClass", "seed path", 0));
         gcRadio->setText(QApplication::translate("SegmentationClass", "graph cut", 0));
         gbRadio->setText(QApplication::translate("SegmentationClass", "grab cut", 0));
         mgcRadio->setText(QApplication::translate("SegmentationClass", "multi-level graph cut", 0));
@@ -220,11 +275,14 @@ public:
         ggRadio->setText(QApplication::translate("SegmentationClass", "GG", 0));
         hggRadio->setText(QApplication::translate("SegmentationClass", "HGG", 0));
         saveButton->setText(QApplication::translate("SegmentationClass", "save", 0));
+        RGBLabel->setText(QApplication::translate("SegmentationClass", "RGB Image:", 0));
+        depthLabel->setText(QApplication::translate("SegmentationClass", "Depth Image:", 0));
+        seedLabel->setText(QApplication::translate("SegmentationClass", "Seed Image:", 0));
+        resultLabel->setText(QApplication::translate("SegmentationClass", "Result Image:", 0));
         RGBImage->setText(QString());
         depthImage->setText(QString());
         seedImage->setText(QString());
         resultImage->setText(QString());
-        menuOpen->setTitle(QApplication::translate("SegmentationClass", "open", 0));
     } // retranslateUi
 
 };

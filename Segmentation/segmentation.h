@@ -6,6 +6,8 @@
 
 #include <iostream>
 #include <string>
+#include <QFileDialog>
+#include <qmenubar.h>
 using namespace std;
 
 class Segmentation : public QMainWindow
@@ -18,13 +20,12 @@ public:
 
 private:
 	Ui::SegmentationClass ui;
-	string RGBPath;
-	string DepthPath;
-	string SeedPath;
-	string ResultPath;
-
-private slots:;
-	void on_OpenRGB_clicked();
+	QString RGBPath;
+	QString DepthPath;
+	QString SeedPath;
+	QString ResultPath;
+	QAction *openRGB;
+	QAction *openDepth;
 };
 
 #endif // SEGMENTATION_H
