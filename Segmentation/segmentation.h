@@ -5,9 +5,9 @@
 #include "ui_segmentation.h"
 
 #include <iostream>
-#include <string>
 #include <QFileDialog>
-#include <qmenubar.h>
+#include <QMenubar>
+#include <QMessageBox>
 using namespace std;
 
 class Segmentation : public QMainWindow
@@ -17,15 +17,25 @@ class Segmentation : public QMainWindow
 public:
 	Segmentation(QWidget *parent = 0);
 	~Segmentation();
+	void openDepthPath();
+	void openRGBPath();
+	void openDepthImage();
+	void openRGBImage();
+	void showImageOnLabel(QLabel *label, QString imgPath);
 
 private:
 	Ui::SegmentationClass ui;
-	QString RGBPath;
-	QString DepthPath;
-	QString SeedPath;
-	QString ResultPath;
-	QAction *openRGB;
-	QAction *openDepth;
+	QString rgbPath;
+	QString depthPath;
+	QString seedPath;
+	QString resultPath;
+	QString curRGBName;
+	QString curDepthName;
+
+private slots:
+	void on_seedButton_clicked();
+	void on_resultButton_clicked();
+	void on_segmentButton_clicked();
 };
 
 #endif // SEGMENTATION_H

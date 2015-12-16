@@ -21,7 +21,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -45,14 +44,10 @@ public:
     QLabel *seedLabel;
     QLabel *resultLabel;
     QWidget *layoutWidget2;
-    QHBoxLayout *horizontalLayout_4;
-    QLabel *RGBImage;
-    QLabel *depthImage;
-    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_5;
     QLabel *seedImage;
     QLabel *resultImage;
-    QWidget *layoutWidget4;
+    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_6;
     QLineEdit *seedPathEdit;
@@ -60,9 +55,9 @@ public:
     QHBoxLayout *horizontalLayout_7;
     QLineEdit *resultPathEdit;
     QPushButton *resultButton;
-    QSpacerItem *horizontalSpacer;
+    QPushButton *segmentButton;
     QPushButton *saveButton;
-    QWidget *layoutWidget5;
+    QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout;
     QListWidget *imageList;
     QHBoxLayout *horizontalLayout;
@@ -77,6 +72,13 @@ public:
     QRadioButton *ggRadio;
     QRadioButton *hggRadio;
     QLabel *timeLabel;
+    QHBoxLayout *horizontalLayout_9;
+    QLineEdit *timeLineEdit;
+    QLabel *label_2;
+    QWidget *layoutWidget5;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *RGBImage;
+    QLabel *depthImage;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -84,7 +86,7 @@ public:
     {
         if (SegmentationClass->objectName().isEmpty())
             SegmentationClass->setObjectName(QStringLiteral("SegmentationClass"));
-        SegmentationClass->resize(701, 487);
+        SegmentationClass->resize(711, 486);
         OpenRGB = new QAction(SegmentationClass);
         OpenRGB->setObjectName(QStringLiteral("OpenRGB"));
         OpenDepth = new QAction(SegmentationClass);
@@ -129,45 +131,26 @@ public:
 
         layoutWidget2 = new QWidget(centralWidget);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(9, 19, 511, 171));
-        horizontalLayout_4 = new QHBoxLayout(layoutWidget2);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        RGBImage = new QLabel(layoutWidget2);
-        RGBImage->setObjectName(QStringLiteral("RGBImage"));
-        RGBImage->setFrameShape(QFrame::NoFrame);
-
-        horizontalLayout_4->addWidget(RGBImage);
-
-        depthImage = new QLabel(layoutWidget2);
-        depthImage->setObjectName(QStringLiteral("depthImage"));
-
-        horizontalLayout_4->addWidget(depthImage);
-
-        layoutWidget3 = new QWidget(centralWidget);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(10, 220, 511, 171));
-        horizontalLayout_5 = new QHBoxLayout(layoutWidget3);
+        layoutWidget2->setGeometry(QRect(10, 220, 511, 181));
+        horizontalLayout_5 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
-        seedImage = new QLabel(layoutWidget3);
+        seedImage = new QLabel(layoutWidget2);
         seedImage->setObjectName(QStringLiteral("seedImage"));
 
         horizontalLayout_5->addWidget(seedImage);
 
-        resultImage = new QLabel(layoutWidget3);
+        resultImage = new QLabel(layoutWidget2);
         resultImage->setObjectName(QStringLiteral("resultImage"));
 
         horizontalLayout_5->addWidget(resultImage);
 
-        layoutWidget4 = new QWidget(centralWidget);
-        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(10, 400, 681, 27));
-        horizontalLayout_8 = new QHBoxLayout(layoutWidget4);
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(10, 400, 681, 27));
+        horizontalLayout_8 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_8->setSpacing(6);
         horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
@@ -175,12 +158,13 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        seedPathEdit = new QLineEdit(layoutWidget4);
+        seedPathEdit = new QLineEdit(layoutWidget3);
         seedPathEdit->setObjectName(QStringLiteral("seedPathEdit"));
+        seedPathEdit->setReadOnly(true);
 
         horizontalLayout_6->addWidget(seedPathEdit);
 
-        seedButton = new QPushButton(layoutWidget4);
+        seedButton = new QPushButton(layoutWidget3);
         seedButton->setObjectName(QStringLiteral("seedButton"));
 
         horizontalLayout_6->addWidget(seedButton);
@@ -191,12 +175,13 @@ public:
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        resultPathEdit = new QLineEdit(layoutWidget4);
+        resultPathEdit = new QLineEdit(layoutWidget3);
         resultPathEdit->setObjectName(QStringLiteral("resultPathEdit"));
+        resultPathEdit->setReadOnly(true);
 
         horizontalLayout_7->addWidget(resultPathEdit);
 
-        resultButton = new QPushButton(layoutWidget4);
+        resultButton = new QPushButton(layoutWidget3);
         resultButton->setObjectName(QStringLiteral("resultButton"));
 
         horizontalLayout_7->addWidget(resultButton);
@@ -204,24 +189,25 @@ public:
 
         horizontalLayout_8->addLayout(horizontalLayout_7);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        segmentButton = new QPushButton(layoutWidget3);
+        segmentButton->setObjectName(QStringLiteral("segmentButton"));
 
-        horizontalLayout_8->addItem(horizontalSpacer);
+        horizontalLayout_8->addWidget(segmentButton);
 
-        saveButton = new QPushButton(layoutWidget4);
+        saveButton = new QPushButton(layoutWidget3);
         saveButton->setObjectName(QStringLiteral("saveButton"));
 
         horizontalLayout_8->addWidget(saveButton);
 
-        layoutWidget5 = new QWidget(centralWidget);
-        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(531, 1, 163, 391));
-        verticalLayout = new QVBoxLayout(layoutWidget5);
+        layoutWidget4 = new QWidget(centralWidget);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(531, 1, 176, 391));
+        verticalLayout = new QVBoxLayout(layoutWidget4);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        imageList = new QListWidget(layoutWidget5);
+        imageList = new QListWidget(layoutWidget4);
         imageList->setObjectName(QStringLiteral("imageList"));
 
         verticalLayout->addWidget(imageList);
@@ -229,12 +215,12 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        brushSizeText = new QLabel(layoutWidget5);
+        brushSizeText = new QLabel(layoutWidget4);
         brushSizeText->setObjectName(QStringLiteral("brushSizeText"));
 
         horizontalLayout->addWidget(brushSizeText);
 
-        spinBox = new QSpinBox(layoutWidget5);
+        spinBox = new QSpinBox(layoutWidget4);
         spinBox->setObjectName(QStringLiteral("spinBox"));
         spinBox->setMaximum(10);
 
@@ -243,50 +229,90 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        label = new QLabel(layoutWidget5);
+        label = new QLabel(layoutWidget4);
         label->setObjectName(QStringLiteral("label"));
 
         verticalLayout->addWidget(label);
 
-        gcRadio = new QRadioButton(layoutWidget5);
+        gcRadio = new QRadioButton(layoutWidget4);
         gcRadio->setObjectName(QStringLiteral("gcRadio"));
 
         verticalLayout->addWidget(gcRadio);
 
-        gbRadio = new QRadioButton(layoutWidget5);
+        gbRadio = new QRadioButton(layoutWidget4);
         gbRadio->setObjectName(QStringLiteral("gbRadio"));
 
         verticalLayout->addWidget(gbRadio);
 
-        mgcRadio = new QRadioButton(layoutWidget5);
+        mgcRadio = new QRadioButton(layoutWidget4);
         mgcRadio->setObjectName(QStringLiteral("mgcRadio"));
 
         verticalLayout->addWidget(mgcRadio);
 
-        gddRadio = new QRadioButton(layoutWidget5);
+        gddRadio = new QRadioButton(layoutWidget4);
         gddRadio->setObjectName(QStringLiteral("gddRadio"));
 
         verticalLayout->addWidget(gddRadio);
 
-        rgbdRadio = new QRadioButton(layoutWidget5);
+        rgbdRadio = new QRadioButton(layoutWidget4);
         rgbdRadio->setObjectName(QStringLiteral("rgbdRadio"));
 
         verticalLayout->addWidget(rgbdRadio);
 
-        ggRadio = new QRadioButton(layoutWidget5);
+        ggRadio = new QRadioButton(layoutWidget4);
         ggRadio->setObjectName(QStringLiteral("ggRadio"));
 
         verticalLayout->addWidget(ggRadio);
 
-        hggRadio = new QRadioButton(layoutWidget5);
+        hggRadio = new QRadioButton(layoutWidget4);
         hggRadio->setObjectName(QStringLiteral("hggRadio"));
 
         verticalLayout->addWidget(hggRadio);
 
-        timeLabel = new QLabel(layoutWidget5);
+        timeLabel = new QLabel(layoutWidget4);
         timeLabel->setObjectName(QStringLiteral("timeLabel"));
 
         verticalLayout->addWidget(timeLabel);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        timeLineEdit = new QLineEdit(layoutWidget4);
+        timeLineEdit->setObjectName(QStringLiteral("timeLineEdit"));
+        timeLineEdit->setReadOnly(true);
+
+        horizontalLayout_9->addWidget(timeLineEdit);
+
+        label_2 = new QLabel(layoutWidget4);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        horizontalLayout_9->addWidget(label_2);
+
+
+        verticalLayout->addLayout(horizontalLayout_9);
+
+        layoutWidget5 = new QWidget(centralWidget);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(10, 20, 511, 181));
+        horizontalLayout_4 = new QHBoxLayout(layoutWidget5);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        RGBImage = new QLabel(layoutWidget5);
+        RGBImage->setObjectName(QStringLiteral("RGBImage"));
+        RGBImage->setCursor(QCursor(Qt::ArrowCursor));
+        RGBImage->setLayoutDirection(Qt::LeftToRight);
+        RGBImage->setFrameShape(QFrame::NoFrame);
+        RGBImage->setScaledContents(false);
+        RGBImage->setWordWrap(false);
+
+        horizontalLayout_4->addWidget(RGBImage);
+
+        depthImage = new QLabel(layoutWidget5);
+        depthImage->setObjectName(QStringLiteral("depthImage"));
+
+        horizontalLayout_4->addWidget(depthImage);
 
         SegmentationClass->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(SegmentationClass);
@@ -310,12 +336,11 @@ public:
         depthLabel->setText(QApplication::translate("SegmentationClass", "Depth Image:", 0));
         seedLabel->setText(QApplication::translate("SegmentationClass", "Seed Image:", 0));
         resultLabel->setText(QApplication::translate("SegmentationClass", "Result Image:", 0));
-        RGBImage->setText(QString());
-        depthImage->setText(QString());
         seedImage->setText(QString());
         resultImage->setText(QString());
         seedButton->setText(QApplication::translate("SegmentationClass", "seed path", 0));
         resultButton->setText(QApplication::translate("SegmentationClass", "result path", 0));
+        segmentButton->setText(QApplication::translate("SegmentationClass", "segment", 0));
         saveButton->setText(QApplication::translate("SegmentationClass", "save", 0));
         brushSizeText->setText(QApplication::translate("SegmentationClass", "Brush Size:", 0));
         label->setText(QApplication::translate("SegmentationClass", "Choose a method:", 0));
@@ -326,7 +351,10 @@ public:
         rgbdRadio->setText(QApplication::translate("SegmentationClass", "RGBD grapg cut", 0));
         ggRadio->setText(QApplication::translate("SegmentationClass", "GG", 0));
         hggRadio->setText(QApplication::translate("SegmentationClass", "HGG", 0));
-        timeLabel->setText(QApplication::translate("SegmentationClass", "Time:", 0));
+        timeLabel->setText(QApplication::translate("SegmentationClass", "Average Time per Interaction:", 0));
+        label_2->setText(QApplication::translate("SegmentationClass", "ms", 0));
+        RGBImage->setText(QString());
+        depthImage->setText(QString());
     } // retranslateUi
 
 };
