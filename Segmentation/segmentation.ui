@@ -6,34 +6,188 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>697</width>
-    <height>481</height>
+    <width>701</width>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Segmentation</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="timeLabel">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>410</y>
-      <width>54</width>
-      <height>12</height>
+      <y>0</y>
+      <width>511</width>
+      <height>20</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Time:</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="RGBLabel">
+       <property name="text">
+        <string>RGB Image:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="depthLabel">
+       <property name="text">
+        <string>Depth Image:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>10</y>
+      <x>10</x>
+      <y>200</y>
+      <width>511</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="seedLabel">
+       <property name="text">
+        <string>Seed Image:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="resultLabel">
+       <property name="text">
+        <string>Result Image:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>19</y>
+      <width>511</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="RGBImage">
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="depthImage">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>511</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="seedImage">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="resultImage">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>681</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLineEdit" name="seedPathEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seedButton">
+         <property name="text">
+          <string>seed path</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QLineEdit" name="resultPathEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="resultButton">
+         <property name="text">
+          <string>result path</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>save</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>531</x>
+      <y>1</y>
       <width>163</width>
-      <height>412</height>
+      <height>391</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -41,26 +195,27 @@
       <widget class="QListWidget" name="imageList"/>
      </item>
      <item>
-      <widget class="QSlider" name="brushSizeSlider">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="brushSizeText">
+         <property name="text">
+          <string>Brush Size:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox">
+         <property name="maximum">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QLabel" name="brushSizeText">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Brush Size:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="seedPathEdit"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seedButton">
-       <property name="text">
-        <string>seed path</string>
+        <string>Choose a method:</string>
        </property>
       </widget>
      </item>
@@ -114,133 +269,14 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="saveButton">
-         <property name="text">
-          <string>save</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>511</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="RGBLabel">
+      <widget class="QLabel" name="timeLabel">
        <property name="text">
-        <string>RGB Image:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="depthLabel">
-       <property name="text">
-        <string>Depth Image:</string>
+        <string>Time:</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>210</y>
-      <width>511</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="seedLabel">
-       <property name="text">
-        <string>Seed Image:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="resultLabel">
-       <property name="text">
-        <string>Result Image:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>9</x>
-      <y>29</y>
-      <width>511</width>
-      <height>171</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="RGBImage">
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="depthImage">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>230</y>
-      <width>511</width>
-      <height>171</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
-      <widget class="QLabel" name="seedImage">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="resultImage">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <zorder>timeLabel</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>RGBLabel</zorder>
-   <zorder>seedLabel</zorder>
-   <zorder>depthLabel</zorder>
-   <zorder>resultLabel</zorder>
-   <zorder>depthLabel</zorder>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
