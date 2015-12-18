@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_segmentation.h"
+//#include "drawAreaWidget.h"
 
 #include <iostream>
 #include <QFileDialog>
@@ -31,11 +32,15 @@ private:
 	QString resultPath;
 	QString curRGBName;
 	QString curDepthName;
+	QImage seedImage;
+	QImage paintImage;
+	QImage resultImage;
 
 private slots:
 	void on_seedButton_clicked();
 	void on_resultButton_clicked();
 	void on_segmentButton_clicked();
+	void on_saveButton_clicked();
 };
 
 #endif // SEGMENTATION_H

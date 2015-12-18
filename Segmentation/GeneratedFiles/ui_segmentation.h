@@ -62,8 +62,8 @@ public:
     QListWidget *imageList;
     QHBoxLayout *horizontalLayout;
     QLabel *brushSizeText;
-    QSpinBox *spinBox;
-    QLabel *label;
+    QSpinBox *brushSpinBox;
+    QLabel *methodLabel;
     QRadioButton *gcRadio;
     QRadioButton *gbRadio;
     QRadioButton *mgcRadio;
@@ -74,7 +74,7 @@ public:
     QLabel *timeLabel;
     QHBoxLayout *horizontalLayout_9;
     QLineEdit *timeLineEdit;
-    QLabel *label_2;
+    QLabel *msLabel;
     QWidget *layoutWidget5;
     QHBoxLayout *horizontalLayout_4;
     QLabel *RGBImage;
@@ -220,19 +220,19 @@ public:
 
         horizontalLayout->addWidget(brushSizeText);
 
-        spinBox = new QSpinBox(layoutWidget4);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setMaximum(10);
+        brushSpinBox = new QSpinBox(layoutWidget4);
+        brushSpinBox->setObjectName(QStringLiteral("brushSpinBox"));
+        brushSpinBox->setMaximum(10);
 
-        horizontalLayout->addWidget(spinBox);
+        horizontalLayout->addWidget(brushSpinBox);
 
 
         verticalLayout->addLayout(horizontalLayout);
 
-        label = new QLabel(layoutWidget4);
-        label->setObjectName(QStringLiteral("label"));
+        methodLabel = new QLabel(layoutWidget4);
+        methodLabel->setObjectName(QStringLiteral("methodLabel"));
 
-        verticalLayout->addWidget(label);
+        verticalLayout->addWidget(methodLabel);
 
         gcRadio = new QRadioButton(layoutWidget4);
         gcRadio->setObjectName(QStringLiteral("gcRadio"));
@@ -283,10 +283,10 @@ public:
 
         horizontalLayout_9->addWidget(timeLineEdit);
 
-        label_2 = new QLabel(layoutWidget4);
-        label_2->setObjectName(QStringLiteral("label_2"));
+        msLabel = new QLabel(layoutWidget4);
+        msLabel->setObjectName(QStringLiteral("msLabel"));
 
-        horizontalLayout_9->addWidget(label_2);
+        horizontalLayout_9->addWidget(msLabel);
 
 
         verticalLayout->addLayout(horizontalLayout_9);
@@ -343,7 +343,7 @@ public:
         segmentButton->setText(QApplication::translate("SegmentationClass", "segment", 0));
         saveButton->setText(QApplication::translate("SegmentationClass", "save", 0));
         brushSizeText->setText(QApplication::translate("SegmentationClass", "Brush Size:", 0));
-        label->setText(QApplication::translate("SegmentationClass", "Choose a method:", 0));
+        methodLabel->setText(QApplication::translate("SegmentationClass", "Choose a method:", 0));
         gcRadio->setText(QApplication::translate("SegmentationClass", "graph cut", 0));
         gbRadio->setText(QApplication::translate("SegmentationClass", "grab cut", 0));
         mgcRadio->setText(QApplication::translate("SegmentationClass", "multi-level graph cut", 0));
@@ -352,7 +352,7 @@ public:
         ggRadio->setText(QApplication::translate("SegmentationClass", "GG", 0));
         hggRadio->setText(QApplication::translate("SegmentationClass", "HGG", 0));
         timeLabel->setText(QApplication::translate("SegmentationClass", "Average Time per Interaction:", 0));
-        label_2->setText(QApplication::translate("SegmentationClass", "ms", 0));
+        msLabel->setText(QApplication::translate("SegmentationClass", "ms", 0));
         RGBImage->setText(QString());
         depthImage->setText(QString());
     } // retranslateUi

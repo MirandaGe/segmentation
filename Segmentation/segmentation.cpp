@@ -26,6 +26,8 @@ Segmentation::Segmentation(QWidget *parent)
 	connect(openDepthFile, &QAction::triggered, this, &Segmentation::openDepthPath);
 	connect(openRGBFile, &QAction::triggered, this, &Segmentation::openRGBPath);
 
+	//DrawAreaWidget *draw = new DrawAreaWidget(this);
+	//this->setCentralWidget(draw);
 	ui.setupUi(this);
 }
 
@@ -109,6 +111,9 @@ void Segmentation::showImageOnLabel(QLabel *label, QString imgPath) {
 }
 
 void Segmentation::on_segmentButton_clicked() {
+	if (ui.brushSpinBox->value() == 0) {
+		QMessageBox::warning(this, tr("Brush"), tr("Please set the value of brush! (From 1 to 10)"));
+	}
 	if (ui.gbRadio->isChecked()) {
 		cout << "Grabcut is selected." << endl;
 	}
@@ -133,4 +138,8 @@ void Segmentation::on_segmentButton_clicked() {
 	else {
 		QMessageBox::warning(this, tr("Method"), tr("Please select a method first!"));
 	}
+}
+
+void Segmentation::on_saveButton_clicked() {
+
 }
