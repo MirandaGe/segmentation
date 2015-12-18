@@ -1,2 +1,8 @@
-﻿  segmentation.cpp
+﻿  Uic'ing interactionsegment.ui...
+  moc_interactionsegment.cpp
+  moc_segmentation.cpp
+  interactionsegment.cpp
+  main.cpp
+  segmentation.cpp
+  Generating Code...
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe

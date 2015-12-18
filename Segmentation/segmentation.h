@@ -3,7 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_segmentation.h"
-//#include "drawAreaWidget.h"
+#include "interactionsegment.h"
 
 #include <iostream>
 #include <QFileDialog>
@@ -22,7 +22,7 @@ public:
 	void openRGBPath();
 	void openDepthImage();
 	void openRGBImage();
-	void showImageOnLabel(QLabel *label, QString imgPath);
+	void showImageOnLabel(QLabel *label, QString &imgPath, QImage &objImage);
 
 private:
 	Ui::SegmentationClass ui;
@@ -32,9 +32,11 @@ private:
 	QString resultPath;
 	QString curRGBName;
 	QString curDepthName;
+	QImage rgbImage;
 	QImage seedImage;
 	QImage paintImage;
 	QImage resultImage;
+	QImage depthImage;
 
 private slots:
 	void on_seedButton_clicked();

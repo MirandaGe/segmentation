@@ -37,75 +37,80 @@ Segmentation::~Segmentation()
 }
 
 void Segmentation::openDepthImage() {
-	curDepthName = QFileDialog::getOpenFileName(this, tr("Open Depth Image"), "E:\\Image", tr("Images (*.png *.xpm *.jpg)"));
-	if (curDepthName.isEmpty()) {
+	QString imgName = QFileDialog::getOpenFileName(this, tr("Open Depth Image"), "E:\\Image\\NJU-DS400\\depth", tr("Images (*.png *.xpm *.jpg)"));
+	if (curDepthName.isEmpty() && imgName.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any image."));
 	}
 	else {
-		showImageOnLabel(ui.depthImage, curDepthName);
+		curDepthName = imgName;
+		showImageOnLabel(ui.depthImage, curDepthName, depthImage);
 		cout << curDepthName.toStdString() << endl;
 	}
 }
 
 void Segmentation::openRGBImage() {
-	curRGBName = QFileDialog::getOpenFileName(this, tr("Open RGB Image"), "E:\\Image", tr("Images (*.png *.xpm *.jpg)"));
-	if (curRGBName.isEmpty()) {
+	QString imgName = QFileDialog::getOpenFileName(this, tr("Open RGB Image"), "E:\\Image\\NJU-DS400\\image", tr("Images (*.png *.xpm *.jpg)"));
+	if (curRGBName.isEmpty() && imgName.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any image."));
 	}
 	else {
-		showImageOnLabel(ui.RGBImage, curRGBName);
+		curRGBName = imgName;
+		showImageOnLabel(ui.RGBImage, curRGBName, rgbImage);
 		cout << curRGBName.toStdString() << endl;
 	}
 }
 
 void Segmentation::openDepthPath() {
-	depthPath = QFileDialog::getExistingDirectory(this, tr("Select Seed Path"), "E:\\Image", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-	if (depthPath.isEmpty()) {
+	QString curPath = QFileDialog::getExistingDirectory(this, tr("Select Depth Image Path"), "E:\\Image\\NJU-DS400\\depth", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	if (depthPath.isEmpty() && curPath.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any path."));
 	}
 	else {
+		depthPath = curPath;
 		cout << depthPath.toStdString() << endl;
 	}
 }
 
 void Segmentation::openRGBPath() {
-	rgbPath = QFileDialog::getExistingDirectory(this, tr("Select Seed Path"), "E:\\Image", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-	if (rgbPath.isEmpty()) {
+	QString curPath = QFileDialog::getExistingDirectory(this, tr("Select RGB Image Path"), "E:\\Image\\NJU-DS400\\image", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	if (rgbPath.isEmpty() && curPath.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any path."));
 	}
 	else {
+		rgbPath = curPath;
 		cout << rgbPath.toStdString() << endl;
 	}
 }
 
 void Segmentation::on_seedButton_clicked() {
-	seedPath = QFileDialog::getExistingDirectory(this, tr("Select Seed Path"), "E:\\Image", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-	if (seedPath.isEmpty()) {
+	QString curPath = QFileDialog::getExistingDirectory(this, tr("Select Depth Image Path"), "E:\\Image\\NJU-DS400\\seed", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	if (seedPath.isEmpty() && curPath.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any path."));
 	}
 	else {
+		seedPath = curPath;
 		ui.seedPathEdit->setText(seedPath);
 		cout << seedPath.toStdString() << endl;
 	}
 }
 
 void Segmentation::on_resultButton_clicked() {
-	resultPath = QFileDialog::getExistingDirectory(this, tr("Select Result Path"), "E:\\Image", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-	if (resultPath.isEmpty()) {
+	QString curPath = QFileDialog::getExistingDirectory(this, tr("Select Result Path"), "E:\\Image\\NJU-DS400", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	if (resultPath.isEmpty() && curPath.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any path."));
 	}
 	else {
+		resultPath = curPath;
 		ui.resultPathEdit->setText(resultPath);
 		cout << resultPath.toStdString() << endl;
 	}
 }
 
-void Segmentation::showImageOnLabel(QLabel *label, QString imgPath) {
-	QImage imgObj(imgPath);
-	double wRatio(252 / (double)imgObj.width()), hRatio(179 / (double)imgObj.height());
+void Segmentation::showImageOnLabel(QLabel *label, QString &imgPath, QImage &objImage) {
+	objImage = QImage(imgPath);
+	double wRatio(label->width() / (double)objImage.width()), hRatio(label->height() / (double)objImage.height());
 	double ratio(wRatio < hRatio ? wRatio : hRatio);
-	imgObj = imgObj.scaled(imgObj.width()*ratio, imgObj.height()*ratio);
-	label->setPixmap(QPixmap::fromImage(imgObj));
+	label->setPixmap(QPixmap::fromImage(objImage.scaled(objImage.width()*ratio, objImage.height()*ratio)));
 	label->setAlignment(Qt::AlignCenter);
 	label->show();
 }
@@ -137,6 +142,16 @@ void Segmentation::on_segmentButton_clicked() {
 	}
 	else {
 		QMessageBox::warning(this, tr("Method"), tr("Please select a method first!"));
+	}
+
+	InteractionSegment dialog(this);
+	//dialog.setFixedSize(rgbImage.width() + 10, rgbImage.height() + 50);
+	dialog.ui.imageLabel->setPixmap(QPixmap::fromImage(rgbImage));
+	dialog.ui.imageLabel->setAlignment(Qt::AlignCenter);
+	dialog.ui.imageLabel->show();
+
+	if (dialog.exec()) {
+		
 	}
 }
 
