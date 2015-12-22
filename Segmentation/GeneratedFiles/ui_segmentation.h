@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -36,7 +37,7 @@ public:
     QAction *OpenRGB;
     QAction *OpenDepth;
     QWidget *centralWidget;
-    QWidget *layoutWidget;
+    QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout_11;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
@@ -93,26 +94,25 @@ public:
         OpenDepth->setObjectName(QStringLiteral("OpenDepth"));
         centralWidget = new QWidget(SegmentationClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        layoutWidget = new QWidget(centralWidget);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 0, 916, 567));
-        horizontalLayout_11 = new QHBoxLayout(layoutWidget);
+        gridLayout = new QGridLayout(centralWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setSpacing(6);
-        horizontalLayout_11->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
-        horizontalLayout_11->setContentsMargins(0, 0, 0, 0);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        RGBLabel = new QLabel(layoutWidget);
+        RGBLabel = new QLabel(centralWidget);
         RGBLabel->setObjectName(QStringLiteral("RGBLabel"));
 
         horizontalLayout_2->addWidget(RGBLabel);
 
-        depthLabel = new QLabel(layoutWidget);
+        depthLabel = new QLabel(centralWidget);
         depthLabel->setObjectName(QStringLiteral("depthLabel"));
 
         horizontalLayout_2->addWidget(depthLabel);
@@ -123,7 +123,7 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        RGBImage = new QLabel(layoutWidget);
+        RGBImage = new QLabel(centralWidget);
         RGBImage->setObjectName(QStringLiteral("RGBImage"));
         RGBImage->setMinimumSize(QSize(320, 240));
         RGBImage->setMaximumSize(QSize(400, 300));
@@ -135,7 +135,7 @@ public:
 
         horizontalLayout_4->addWidget(RGBImage);
 
-        depthImage = new QLabel(layoutWidget);
+        depthImage = new QLabel(centralWidget);
         depthImage->setObjectName(QStringLiteral("depthImage"));
         depthImage->setMinimumSize(QSize(320, 240));
         depthImage->setMaximumSize(QSize(400, 300));
@@ -148,12 +148,12 @@ public:
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        seedLabel = new QLabel(layoutWidget);
+        seedLabel = new QLabel(centralWidget);
         seedLabel->setObjectName(QStringLiteral("seedLabel"));
 
         horizontalLayout_3->addWidget(seedLabel);
 
-        resultLabel = new QLabel(layoutWidget);
+        resultLabel = new QLabel(centralWidget);
         resultLabel->setObjectName(QStringLiteral("resultLabel"));
 
         horizontalLayout_3->addWidget(resultLabel);
@@ -164,14 +164,14 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        seedImage = new QLabel(layoutWidget);
+        seedImage = new QLabel(centralWidget);
         seedImage->setObjectName(QStringLiteral("seedImage"));
         seedImage->setMinimumSize(QSize(320, 240));
         seedImage->setMaximumSize(QSize(400, 300));
 
         horizontalLayout_5->addWidget(seedImage);
 
-        resultImage = new QLabel(layoutWidget);
+        resultImage = new QLabel(centralWidget);
         resultImage->setObjectName(QStringLiteral("resultImage"));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
@@ -192,13 +192,13 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        seedPathEdit = new QLineEdit(layoutWidget);
+        seedPathEdit = new QLineEdit(centralWidget);
         seedPathEdit->setObjectName(QStringLiteral("seedPathEdit"));
         seedPathEdit->setReadOnly(true);
 
         horizontalLayout_6->addWidget(seedPathEdit);
 
-        seedButton = new QPushButton(layoutWidget);
+        seedButton = new QPushButton(centralWidget);
         seedButton->setObjectName(QStringLiteral("seedButton"));
 
         horizontalLayout_6->addWidget(seedButton);
@@ -209,13 +209,13 @@ public:
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        resultPathEdit = new QLineEdit(layoutWidget);
+        resultPathEdit = new QLineEdit(centralWidget);
         resultPathEdit->setObjectName(QStringLiteral("resultPathEdit"));
         resultPathEdit->setReadOnly(true);
 
         horizontalLayout_7->addWidget(resultPathEdit);
 
-        resultButton = new QPushButton(layoutWidget);
+        resultButton = new QPushButton(centralWidget);
         resultButton->setObjectName(QStringLiteral("resultButton"));
 
         horizontalLayout_7->addWidget(resultButton);
@@ -233,7 +233,7 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetMinimumSize);
-        imageList = new QListWidget(layoutWidget);
+        imageList = new QListWidget(centralWidget);
         imageList->setObjectName(QStringLiteral("imageList"));
 
         verticalLayout->addWidget(imageList);
@@ -241,12 +241,12 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        brushSizeText = new QLabel(layoutWidget);
+        brushSizeText = new QLabel(centralWidget);
         brushSizeText->setObjectName(QStringLiteral("brushSizeText"));
 
         horizontalLayout->addWidget(brushSizeText);
 
-        brushSpinBox = new QSpinBox(layoutWidget);
+        brushSpinBox = new QSpinBox(centralWidget);
         brushSpinBox->setObjectName(QStringLiteral("brushSpinBox"));
         brushSpinBox->setMaximum(10);
 
@@ -255,47 +255,47 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        methodLabel = new QLabel(layoutWidget);
+        methodLabel = new QLabel(centralWidget);
         methodLabel->setObjectName(QStringLiteral("methodLabel"));
 
         verticalLayout->addWidget(methodLabel);
 
-        gcRadio = new QRadioButton(layoutWidget);
+        gcRadio = new QRadioButton(centralWidget);
         gcRadio->setObjectName(QStringLiteral("gcRadio"));
 
         verticalLayout->addWidget(gcRadio);
 
-        gbRadio = new QRadioButton(layoutWidget);
+        gbRadio = new QRadioButton(centralWidget);
         gbRadio->setObjectName(QStringLiteral("gbRadio"));
 
         verticalLayout->addWidget(gbRadio);
 
-        mgcRadio = new QRadioButton(layoutWidget);
+        mgcRadio = new QRadioButton(centralWidget);
         mgcRadio->setObjectName(QStringLiteral("mgcRadio"));
 
         verticalLayout->addWidget(mgcRadio);
 
-        gddRadio = new QRadioButton(layoutWidget);
+        gddRadio = new QRadioButton(centralWidget);
         gddRadio->setObjectName(QStringLiteral("gddRadio"));
 
         verticalLayout->addWidget(gddRadio);
 
-        rgbdRadio = new QRadioButton(layoutWidget);
+        rgbdRadio = new QRadioButton(centralWidget);
         rgbdRadio->setObjectName(QStringLiteral("rgbdRadio"));
 
         verticalLayout->addWidget(rgbdRadio);
 
-        ggRadio = new QRadioButton(layoutWidget);
+        ggRadio = new QRadioButton(centralWidget);
         ggRadio->setObjectName(QStringLiteral("ggRadio"));
 
         verticalLayout->addWidget(ggRadio);
 
-        hggRadio = new QRadioButton(layoutWidget);
+        hggRadio = new QRadioButton(centralWidget);
         hggRadio->setObjectName(QStringLiteral("hggRadio"));
 
         verticalLayout->addWidget(hggRadio);
 
-        timeLabel = new QLabel(layoutWidget);
+        timeLabel = new QLabel(centralWidget);
         timeLabel->setObjectName(QStringLiteral("timeLabel"));
 
         verticalLayout->addWidget(timeLabel);
@@ -303,13 +303,13 @@ public:
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
-        timeLineEdit = new QLineEdit(layoutWidget);
+        timeLineEdit = new QLineEdit(centralWidget);
         timeLineEdit->setObjectName(QStringLiteral("timeLineEdit"));
         timeLineEdit->setReadOnly(true);
 
         horizontalLayout_9->addWidget(timeLineEdit);
 
-        msLabel = new QLabel(layoutWidget);
+        msLabel = new QLabel(centralWidget);
         msLabel->setObjectName(QStringLiteral("msLabel"));
 
         horizontalLayout_9->addWidget(msLabel);
@@ -324,12 +324,12 @@ public:
 
         horizontalLayout_10->addItem(horizontalSpacer);
 
-        segmentButton = new QPushButton(layoutWidget);
+        segmentButton = new QPushButton(centralWidget);
         segmentButton->setObjectName(QStringLiteral("segmentButton"));
 
         horizontalLayout_10->addWidget(segmentButton);
 
-        saveButton = new QPushButton(layoutWidget);
+        saveButton = new QPushButton(centralWidget);
         saveButton->setObjectName(QStringLiteral("saveButton"));
 
         horizontalLayout_10->addWidget(saveButton);
@@ -339,6 +339,9 @@ public:
 
 
         horizontalLayout_11->addLayout(verticalLayout);
+
+
+        gridLayout->addLayout(horizontalLayout_11, 0, 0, 1, 1);
 
         SegmentationClass->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(SegmentationClass);
