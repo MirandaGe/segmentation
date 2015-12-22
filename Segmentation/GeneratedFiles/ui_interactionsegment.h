@@ -19,7 +19,9 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
+#include <scribblearea.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -28,22 +30,25 @@ class Ui_InteractionSegment
 public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
-    QLabel *imageLabel;
+    ScribbleArea *ScribbleWidget;
     QHBoxLayout *horizontalLayout;
+    QLabel *brushLabel;
+    QSpinBox *brushSpinBox;
+    QSpacerItem *horizontalSpacer_4;
     QPushButton *foreButton;
     QSpacerItem *horizontalSpacer;
     QPushButton *backButton;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *segmentButton;
     QSpacerItem *horizontalSpacer_3;
-    QPushButton *cancelButton;
+    QPushButton *clearButton;
     QPushButton *okButton;
 
     void setupUi(QDialog *InteractionSegment)
     {
         if (InteractionSegment->objectName().isEmpty())
             InteractionSegment->setObjectName(QStringLiteral("InteractionSegment"));
-        InteractionSegment->resize(439, 406);
+        InteractionSegment->resize(563, 94);
         verticalLayout_2 = new QVBoxLayout(InteractionSegment);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -51,16 +56,32 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        imageLabel = new QLabel(InteractionSegment);
-        imageLabel->setObjectName(QStringLiteral("imageLabel"));
-        imageLabel->setAlignment(Qt::AlignCenter);
+        ScribbleWidget = new ScribbleArea(InteractionSegment);
+        ScribbleWidget->setObjectName(QStringLiteral("ScribbleWidget"));
 
-        verticalLayout->addWidget(imageLabel);
+        verticalLayout->addWidget(ScribbleWidget);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setSizeConstraint(QLayout::SetMinimumSize);
+        brushLabel = new QLabel(InteractionSegment);
+        brushLabel->setObjectName(QStringLiteral("brushLabel"));
+
+        horizontalLayout->addWidget(brushLabel);
+
+        brushSpinBox = new QSpinBox(InteractionSegment);
+        brushSpinBox->setObjectName(QStringLiteral("brushSpinBox"));
+        brushSpinBox->setMinimum(1);
+        brushSpinBox->setMaximum(15);
+        brushSpinBox->setValue(8);
+
+        horizontalLayout->addWidget(brushSpinBox);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_4);
+
         foreButton = new QPushButton(InteractionSegment);
         foreButton->setObjectName(QStringLiteral("foreButton"));
 
@@ -88,10 +109,10 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_3);
 
-        cancelButton = new QPushButton(InteractionSegment);
-        cancelButton->setObjectName(QStringLiteral("cancelButton"));
+        clearButton = new QPushButton(InteractionSegment);
+        clearButton->setObjectName(QStringLiteral("clearButton"));
 
-        horizontalLayout->addWidget(cancelButton);
+        horizontalLayout->addWidget(clearButton);
 
         okButton = new QPushButton(InteractionSegment);
         okButton->setObjectName(QStringLiteral("okButton"));
@@ -106,7 +127,6 @@ public:
 
 
         retranslateUi(InteractionSegment);
-        QObject::connect(segmentButton, SIGNAL(clicked()), InteractionSegment, SLOT(accept()));
 
         QMetaObject::connectSlotsByName(InteractionSegment);
     } // setupUi
@@ -114,11 +134,11 @@ public:
     void retranslateUi(QDialog *InteractionSegment)
     {
         InteractionSegment->setWindowTitle(QApplication::translate("InteractionSegment", "InteractionSegment", 0));
-        imageLabel->setText(QString());
+        brushLabel->setText(QApplication::translate("InteractionSegment", "Brush size:", 0));
         foreButton->setText(QApplication::translate("InteractionSegment", "foreground", 0));
         backButton->setText(QApplication::translate("InteractionSegment", "background", 0));
         segmentButton->setText(QApplication::translate("InteractionSegment", "segment", 0));
-        cancelButton->setText(QApplication::translate("InteractionSegment", "Cancel", 0));
+        clearButton->setText(QApplication::translate("InteractionSegment", "clear", 0));
         okButton->setText(QApplication::translate("InteractionSegment", "OK", 0));
     } // retranslateUi
 

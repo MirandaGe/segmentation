@@ -8,7 +8,7 @@ ScribbleArea::ScribbleArea(QWidget *parent)
 	modified = false;
 	scribbling = false;
 	myPenWidth = 8;
-	myPenColor = Qt::blue;
+	myPenColor = Qt::red;
 }
 
 ScribbleArea::~ScribbleArea()
@@ -21,8 +21,9 @@ bool ScribbleArea::openImage(const QString &fileName) {
 	if (!loadedImage.load(fileName))
 		return false;
 
-	QSize newSize = loadedImage.size().expandedTo(size());
-	resizeImage(&loadedImage, newSize);
+	//QSize newSize = loadedImage.size().expandedTo(size());
+	//resizeImage(&loadedImage, newSize);
+	this->setFixedSize(loadedImage.size());
 	image = loadedImage;
 	modified = false;
 	update();
@@ -31,7 +32,7 @@ bool ScribbleArea::openImage(const QString &fileName) {
 
 bool ScribbleArea::saveImage(const QString &fileName, const char *fileFormat) {
 	QImage visibleImage = image;
-	resizeImage(&visibleImage, size());
+	//resizeImage(&visibleImage, size());
 
 	if (visibleImage.save(fileName, fileFormat)) {
 		modified = false;
@@ -77,9 +78,13 @@ void ScribbleArea::mouseReleaseEvent(QMouseEvent *event)
 	}
 }
 
-void ScribbleArea::resizeEvent(QResizeEvent *event)
-//! [15] //! [16]
-// 是否需要保留？
+void ScribbleArea::paintEvent(QPaintEvent *event) {
+	QPainter painter(this);
+	QRect dirtyRect = event->rect();
+	painter.drawImage(dirtyRect, image, dirtyRect);
+}
+
+/*void ScribbleArea::resizeEvent(QResizeEvent *event)
 {
 	if (width() > image.width() || height() > image.height()) {
 		int newWidth = qMax(width() + 128, image.width());
@@ -88,11 +93,9 @@ void ScribbleArea::resizeEvent(QResizeEvent *event)
 		update();
 	}
 	QWidget::resizeEvent(event);
-}
-//! [16]
+}*/
 
-void ScribbleArea::resizeImage(QImage *image, const QSize &newSize)
-// 同上
+/*void ScribbleArea::resizeImage(QImage *image, const QSize &newSize)
 {
 	if (image->size() == newSize)
 		return;
@@ -102,7 +105,7 @@ void ScribbleArea::resizeImage(QImage *image, const QSize &newSize)
 	QPainter painter(&newImage);
 	painter.drawImage(QPoint(0, 0), *image);
 	*image = newImage;
-}
+}*/
 
 void ScribbleArea::drawLineTo(const QPoint &endPoint) {
 	QPainter painter(&image);

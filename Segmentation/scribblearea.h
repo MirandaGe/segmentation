@@ -23,7 +23,7 @@ public:
 	QColor penColor() const { return myPenColor; }
 	int penWidth() const { return myPenWidth; }
 
-public slots:
+	public slots:
 	void clearImage();
 
 protected:
@@ -31,11 +31,11 @@ protected:
 	void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 	void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-	void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+	//void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private:
 	void drawLineTo(const QPoint &endPoint);
-	void resizeImage(QImage *image, const QSize &newSize);
+	//void resizeImage(QImage *image, const QSize &newSize);
 
 	bool modified;
 	bool scribbling;
@@ -45,6 +45,7 @@ private:
 	QImage scribble; // seed image
 	QImage segment; // segment image
 	QPoint lastPoint;
+	QString imagePath; // path of initial image
 };
 
 #endif // SCRIBBLEAREA_H

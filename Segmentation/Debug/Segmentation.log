@@ -1,6 +1,10 @@
-﻿  Uic'ing segmentation.ui...
+﻿  Moc'ing scribblearea.h...
+  moc_interactionsegment.cpp
+  moc_scribblearea.cpp
   moc_segmentation.cpp
+  interactionsegment.cpp
   main.cpp
+  scribblearea.cpp
   segmentation.cpp
   Generating Code...
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe

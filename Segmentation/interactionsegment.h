@@ -13,6 +13,12 @@ public:
 	~InteractionSegment();
 
 	Ui::InteractionSegment ui;
+
+private slots:
+	void on_foreButton_clicked();
+	void on_backButton_clicked();
+	void on_clearButton_clicked();
+
 private:
 	
 };

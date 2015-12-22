@@ -23,7 +23,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -61,9 +60,6 @@ public:
     QPushButton *resultButton;
     QVBoxLayout *verticalLayout;
     QListWidget *imageList;
-    QHBoxLayout *horizontalLayout;
-    QLabel *brushSizeText;
-    QSpinBox *brushSpinBox;
     QLabel *methodLabel;
     QRadioButton *gcRadio;
     QRadioButton *gbRadio;
@@ -238,23 +234,6 @@ public:
 
         verticalLayout->addWidget(imageList);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        brushSizeText = new QLabel(centralWidget);
-        brushSizeText->setObjectName(QStringLiteral("brushSizeText"));
-
-        horizontalLayout->addWidget(brushSizeText);
-
-        brushSpinBox = new QSpinBox(centralWidget);
-        brushSpinBox->setObjectName(QStringLiteral("brushSpinBox"));
-        brushSpinBox->setMaximum(10);
-
-        horizontalLayout->addWidget(brushSpinBox);
-
-
-        verticalLayout->addLayout(horizontalLayout);
-
         methodLabel = new QLabel(centralWidget);
         methodLabel->setObjectName(QStringLiteral("methodLabel"));
 
@@ -292,6 +271,7 @@ public:
 
         hggRadio = new QRadioButton(centralWidget);
         hggRadio->setObjectName(QStringLiteral("hggRadio"));
+        hggRadio->setChecked(true);
 
         verticalLayout->addWidget(hggRadio);
 
@@ -371,7 +351,6 @@ public:
         resultImage->setText(QString());
         seedButton->setText(QApplication::translate("SegmentationClass", "seed path", 0));
         resultButton->setText(QApplication::translate("SegmentationClass", "result path", 0));
-        brushSizeText->setText(QApplication::translate("SegmentationClass", "Brush Size:", 0));
         methodLabel->setText(QApplication::translate("SegmentationClass", "Choose a method:", 0));
         gcRadio->setText(QApplication::translate("SegmentationClass", "graph cut", 0));
         gbRadio->setText(QApplication::translate("SegmentationClass", "grab cut", 0));
