@@ -18,10 +18,6 @@ class Segmentation : public QMainWindow
 public:
 	Segmentation(QWidget *parent = 0);
 	~Segmentation();
-	void openDepthPath();
-	void openRGBPath();
-	void openDepthImage();
-	void openRGBImage();
 	void showImageOnLabel(QLabel *label, QString &imgPath, QImage &objImage);
 
 private:
@@ -34,9 +30,17 @@ private:
 	QString curDepthName;
 	QImage rgbImage;
 	QImage seedImage;
-	QImage paintImage;
 	QImage resultImage;
 	QImage depthImage;
+	QString method;
+	InteractionSegment *segDialog;
+
+	void getMethod();
+	void initializeDialog();
+	void openDepthPath();
+	void openRGBPath();
+	void openDepthImage();
+	void openRGBImage();
 
 private slots:
 	void on_seedButton_clicked();

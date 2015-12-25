@@ -3,6 +3,8 @@
 Segmentation::Segmentation(QWidget *parent)
 	: QMainWindow(parent)
 {
+	ui.setupUi(this);
+
 	QAction *openRGB = new QAction(QIcon(":/images/file-open"), tr("Open RGB Image"), this);
 	openRGB->setStatusTip("Open an RGB image.");
 
@@ -20,13 +22,13 @@ Segmentation::Segmentation(QWidget *parent)
 	file->addAction(openDepth);
 	file->addAction(openDepthFile);
 	file->addAction(openRGBFile);
+	
+	segDialog = new InteractionSegment(this);
 
 	connect(openDepth, &QAction::triggered, this, &Segmentation::openDepthImage);
 	connect(openRGB, &QAction::triggered, this, &Segmentation::openRGBImage);
 	connect(openDepthFile, &QAction::triggered, this, &Segmentation::openDepthPath);
 	connect(openRGBFile, &QAction::triggered, this, &Segmentation::openRGBPath);
-
-	ui.setupUi(this);
 }
 
 Segmentation::~Segmentation()
@@ -114,39 +116,63 @@ void Segmentation::showImageOnLabel(QLabel *label, QString &imgPath, QImage &obj
 }
 
 void Segmentation::on_segmentButton_clicked() {
-	if (ui.gbRadio->isChecked()) {
-		cout << "Grabcut is selected." << endl;
-	}
-	else if (ui.gcRadio->isChecked()) {
-		cout << "graphcut is selected." << endl;
-	}
-	else if (ui.gddRadio->isChecked()) {
-		cout << "gdd is selected." << endl;
-	}
-	else if (ui.ggRadio->isChecked()) {
-		cout << "GG is selected." << endl;
-	}
-	else if (ui.hggRadio->isChecked()) {
-		cout << "HGG is selected." << endl;
-	}
-	else if (ui.mgcRadio->isChecked()) {
-		cout << "MGC is selected." << endl;
-	}
-	else if (ui.rgbdRadio->isChecked()) {
-		cout << "RGBD is selected." << endl;
-	}
-	else {
+	getMethod();
+	if(method.isEmpty()) {
 		QMessageBox::warning(this, tr("Method"), tr("Please select a method first!"));
+		return;
+	}
+	if (seedPath.isEmpty()) {
+		QMessageBox::warning(this, tr("Seed Path"), tr("Please select a seed path first!"));
+		return;
+	}
+	if (resultPath.isEmpty()) {
+		QMessageBox::warning(this, tr("Result Path"), tr("Please select a result path first!"));
+		return;
 	}
 
-	InteractionSegment dialog(this);
-	dialog.ui.ScribbleWidget->openImage(curRGBName);
-
-	if (dialog.exec()) {
-		
-	}
+	initializeDialog();
+	segDialog->exec();
 }
 
 void Segmentation::on_saveButton_clicked() {
 
+}
+
+void Segmentation::getMethod() {
+	if (ui.gbRadio->isChecked()) {
+		cout << "Grabcut is selected." << endl;
+		method = "gb";
+	}
+	else if (ui.gcRadio->isChecked()) {
+		cout << "graphcut is selected." << endl;
+		method = "gc";
+	}
+	else if (ui.gddRadio->isChecked()) {
+		cout << "gdd is selected." << endl;
+		method = "gdd";
+	}
+	else if (ui.ggRadio->isChecked()) {
+		cout << "GG is selected." << endl;
+		method = "gg";
+	}
+	else if (ui.hggRadio->isChecked()) {
+		cout << "HGG is selected." << endl;
+		method = "hgg";
+	}
+	else if (ui.mgcRadio->isChecked()) {
+		cout << "MGC is selected." << endl;
+		method = "mgc";
+	}
+	else if (ui.rgbdRadio->isChecked()) {
+		cout << "RGBD is selected." << endl;
+		method = "rgbd";
+	}
+}
+
+void Segmentation::initializeDialog() {
+	segDialog->ui.ScribbleWidget->openImage(curRGBName);
+	segDialog->ui.ScribbleWidget->setMethod(method);
+	if (method != "gb" && method != "gc" && method != "mgc") {
+		segDialog->ui.ScribbleWidget->setDepthImage(depthImage);
+	}
 }

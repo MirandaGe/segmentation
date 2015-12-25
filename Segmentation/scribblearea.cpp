@@ -21,18 +21,19 @@ bool ScribbleArea::openImage(const QString &fileName) {
 	if (!loadedImage.load(fileName))
 		return false;
 
-	//QSize newSize = loadedImage.size().expandedTo(size());
-	//resizeImage(&loadedImage, newSize);
 	this->setFixedSize(loadedImage.size());
 	image = loadedImage;
+	if(imagePath.isEmpty())
+		imagePath = fileName;
 	modified = false;
 	update();
+	seedImage = QImage(loadedImage.size(), QImage::Format_RGB32);
+	seedImage.fill(qRgb(128, 128, 128));
 	return true;
 }
 
 bool ScribbleArea::saveImage(const QString &fileName, const char *fileFormat) {
-	QImage visibleImage = image;
-	//resizeImage(&visibleImage, size());
+	QImage visibleImage = seedImage;
 
 	if (visibleImage.save(fileName, fileFormat)) {
 		modified = false;
@@ -52,9 +53,8 @@ void ScribbleArea::setPenWidth(int newWidth) {
 }
 
 void ScribbleArea::clearImage() {
-	image.fill(qRgb(255, 255, 255));
-	modified = true;
-	update();
+	openImage(imagePath);
+	seedImage.fill(qRgb(128, 128, 128));
 }
 
 void ScribbleArea::mousePressEvent(QMouseEvent *event) {
@@ -84,29 +84,6 @@ void ScribbleArea::paintEvent(QPaintEvent *event) {
 	painter.drawImage(dirtyRect, image, dirtyRect);
 }
 
-/*void ScribbleArea::resizeEvent(QResizeEvent *event)
-{
-	if (width() > image.width() || height() > image.height()) {
-		int newWidth = qMax(width() + 128, image.width());
-		int newHeight = qMax(height() + 128, image.height());
-		resizeImage(&image, QSize(newWidth, newHeight));
-		update();
-	}
-	QWidget::resizeEvent(event);
-}*/
-
-/*void ScribbleArea::resizeImage(QImage *image, const QSize &newSize)
-{
-	if (image->size() == newSize)
-		return;
-
-	QImage newImage(newSize, QImage::Format_RGB32);
-	newImage.fill(qRgb(255, 255, 255));
-	QPainter painter(&newImage);
-	painter.drawImage(QPoint(0, 0), *image);
-	*image = newImage;
-}*/
-
 void ScribbleArea::drawLineTo(const QPoint &endPoint) {
 	QPainter painter(&image);
 	painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap,
@@ -114,9 +91,22 @@ void ScribbleArea::drawLineTo(const QPoint &endPoint) {
 	painter.drawLine(lastPoint, endPoint);
 	modified = true;
 
+	QPainter seedPainter(&seedImage);
+	QColor seedPenColor = myPenColor == Qt::red ? Qt::white : Qt::black;
+	seedPainter.setPen(QPen(seedPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+	seedPainter.drawLine(lastPoint, endPoint);
+
 	int rad = (myPenWidth / 2) + 2;
 	update(QRect(lastPoint, endPoint).normalized()
 		.adjusted(-rad, -rad, +rad, +rad));
 	lastPoint = endPoint;
 }
 
+void ScribbleArea::setMethod(QString &str) {
+	cout << "method type is " << str.toStdString() << endl;
+	method = str;
+}
+
+void ScribbleArea::setDepthImage(QImage &img) {
+	depthImage = img;
+}

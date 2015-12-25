@@ -22,3 +22,27 @@ void InteractionSegment::on_backButton_clicked() {
 void InteractionSegment::on_clearButton_clicked() {
 	ui.ScribbleWidget->clearImage();
 }
+
+void InteractionSegment::on_brushSpinBox_valueChanged(int i) {
+	ui.ScribbleWidget->setPenWidth(i);
+}
+
+void InteractionSegment::on_segmentButton_clicked() {
+	
+}
+
+void InteractionSegment::on_okButton_clicked() {
+	
+}
+
+void InteractionSegment::saveImage() {
+	QString initialPath = QDir::currentPath() + "/untitled.jpg";
+
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save As"),
+		initialPath,
+		tr("Images (*.png *.xpm *.jpg)"));
+
+	if (!fileName.isEmpty()) {
+		ui.ScribbleWidget->saveImage(fileName, "JPG");
+	}
+}
