@@ -121,6 +121,12 @@ void Segmentation::on_segmentButton_clicked() {
 		QMessageBox::warning(this, tr("Method"), tr("Please select a method first!"));
 		return;
 	}
+
+	initializeDialog();
+	segDialog->exec();
+}
+
+void Segmentation::on_saveButton_clicked() {
 	if (seedPath.isEmpty()) {
 		QMessageBox::warning(this, tr("Seed Path"), tr("Please select a seed path first!"));
 		return;
@@ -129,13 +135,6 @@ void Segmentation::on_segmentButton_clicked() {
 		QMessageBox::warning(this, tr("Result Path"), tr("Please select a result path first!"));
 		return;
 	}
-
-	initializeDialog();
-	segDialog->exec();
-}
-
-void Segmentation::on_saveButton_clicked() {
-
 }
 
 void Segmentation::getMethod() {
