@@ -9,7 +9,7 @@
 
 #ifdef _DEBUG
 #pragma comment(lib, "opencv_core249d.lib")
-#pragma comment(lib, "opencv_highgui249d.lib")	
+#pragma comment(lib, "opencv_highgui249d.lib")
 #pragma comment(lib, "opencv_imgproc249d.lib")
 #else
 #pragma comment(lib, "opencv_core249.lib")

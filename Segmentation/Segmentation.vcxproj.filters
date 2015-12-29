@@ -71,13 +71,13 @@
     <ClCompile Include="geos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="segAlgorithm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="maxflow-v3.02.src\graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="maxflow-v3.02.src\maxflow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="segAlgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,13 +111,13 @@
     <ClInclude Include="geo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="segAlgorithm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="maxflow-v3.02.src\block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="maxflow-v3.02.src\graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="segAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

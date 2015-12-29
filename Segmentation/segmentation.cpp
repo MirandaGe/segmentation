@@ -172,6 +172,6 @@ void Segmentation::initializeDialog() {
 	segDialog->ui.ScribbleWidget->openImage(curRGBName);
 	segDialog->ui.ScribbleWidget->setMethod(method);
 	if (method != "gb" && method != "gc" && method != "mgc") {
-		segDialog->ui.ScribbleWidget->setDepthImage(depthImage);
+		segDialog->ui.ScribbleWidget->setDepthPath(curDepthName);
 	}
 }

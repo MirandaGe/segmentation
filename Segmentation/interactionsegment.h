@@ -19,7 +19,7 @@ public:
 
 	Ui::InteractionSegment ui;
 
-	void saveImage();
+	void saveImage(const QImage &img);
 
 private slots:
 	void on_foreButton_clicked();

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "geo.h"
 #include "graph.h"
 #include <omp.h>
@@ -9,18 +11,19 @@
 using namespace std;
 typedef Graph<int, int, int> GraphType;
 
-#pragma once
 class segAlgorithm
 {
 public:
 	segAlgorithm();
 	~segAlgorithm();
-	
-	void setMethodType(string &method);
-	void setImgPath(string &path);
-	void setDepthPath(string &path);
-	double getSegTime();
-	Mat getSegImage();
+
+	void setMethodType(string &method) { methodType = method; }
+	void setImgPath(string &path) { imgPath = path; }
+	void setDepthPath(string &path) { depthPath = path; }
+	void setSeedImage(Mat &img) { seedImage = img; }
+	double getSegTime() { return segTime; }
+	Mat getSegImage() { return segImage; }
+	void segmentation();
 
 private:
 	string imgPath;
@@ -40,4 +43,3 @@ private:
 	void middleGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg);
 	double RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds);
 };
-

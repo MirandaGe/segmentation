@@ -1,4 +1,10 @@
-﻿  segAlgorithm.cpp
-segAlgorithm.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  qrc_segmentation.cpp
+﻿  moc_interactionsegment.cpp
+  moc_scribblearea.cpp
+  moc_segmentation.cpp
+  interactionsegment.cpp
+  main.cpp
+  scribblearea.cpp
+  segAlgorithm.cpp
+  segmentation.cpp
+  Generating Code...
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe
