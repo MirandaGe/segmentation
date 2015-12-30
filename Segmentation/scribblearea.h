@@ -46,7 +46,7 @@ protected:
 
 private:
 	void drawLineTo(const QPoint &endPoint);
-	void updateAfterSeg();
+	void updateAfterSeg(QImage &newImage);
 	QImage cvMat2QImage(const cv::Mat &inMat);
 	cv::Mat QImage2CvMat(const QImage &inImage, bool inCloneImageData = true);
 

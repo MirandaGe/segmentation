@@ -20,7 +20,7 @@ public:
 	void setMethodType(string &method) { methodType = method; }
 	void setImgPath(string &path) { imgPath = path; }
 	void setDepthPath(string &path) { depthPath = path; }
-	void setSeedImage(Mat &img) { seedImage = img; }
+	void setSeedImage(Mat &img);
 	double getSegTime() { return segTime; }
 	Mat getSegImage() { return segImage; }
 	void segmentation();

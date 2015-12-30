@@ -1,10 +1,2 @@
-﻿  moc_interactionsegment.cpp
-  moc_scribblearea.cpp
-  moc_segmentation.cpp
-  interactionsegment.cpp
-  main.cpp
-  scribblearea.cpp
-  segAlgorithm.cpp
-  segmentation.cpp
-  Generating Code...
+﻿  segAlgorithm.cpp
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe

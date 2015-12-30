@@ -24,8 +24,7 @@ bool ScribbleArea::openImage(const QString &fileName) {
 
 	this->setFixedSize(loadedImage.size());
 	image = loadedImage;
-	if(imagePath.isEmpty())
-		imagePath = fileName;
+	imagePath = fileName;
 	modified = false;
 	update();
 
@@ -102,8 +101,9 @@ void ScribbleArea::drawLineTo(const QPoint &endPoint) {
 	lastPoint = endPoint;
 }
 
-void ScribbleArea::updateAfterSeg() {
-
+void ScribbleArea::updateAfterSeg(QImage &newImage) {
+	image = newImage;
+	update();
 }
 
 void ScribbleArea::setMethod(QString &str) {
@@ -123,6 +123,8 @@ void ScribbleArea::segment() {
 	seg.setSeedImage(QImage2CvMat(seedImage));
 	seg.segmentation();
 	segImage = cvMat2QImage(seg.getSegImage());
+	segImage = segImage.convertToFormat(QImage::Format_RGB888);
+	updateAfterSeg(segImage);
 }
 
 QImage ScribbleArea::cvMat2QImage(const cv::Mat &inMat) {
@@ -180,7 +182,7 @@ cv::Mat ScribbleArea::QImage2CvMat(const QImage &inImage, bool inCloneImageData)
 
 		// 8-bit, 1 channel
 		case QImage::Format_Indexed8: {
-			cv::Mat  mat(inImage.height(), inImage.width(), CV_8UC1, const_cast<uchar*>(inImage.bits()), inImage.bytesPerLine());
+			cv::Mat mat(inImage.height(), inImage.width(), CV_8UC1, const_cast<uchar*>(inImage.bits()), inImage.bytesPerLine());
 			return (inCloneImageData ? mat.clone() : mat);
 		}
 

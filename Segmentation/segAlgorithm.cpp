@@ -3,7 +3,7 @@
 int K = 10;
 int step = 2;
 double *exp_table;
-int scale = 40000;
+int scale = 100000;
 int midColor = 128;
 double alpha = 0.8;
 double beta = 0.5;
@@ -16,6 +16,16 @@ segAlgorithm::segAlgorithm() {
 
 segAlgorithm::~segAlgorithm() {
 
+}
+
+void segAlgorithm::setSeedImage(Mat &img) {
+	seedImage = Mat(img.size(), CV_8UC1);
+	for (int i = 0; i < img.rows; ++i) {
+		for (int j = 0; j < img.cols; ++j) {
+			int p = i*img.cols + j;
+			seedImage.data[p] = img.data[3 * p];
+		}
+	}
 }
 
 void segAlgorithm::setParaForMethod() {
@@ -39,7 +49,7 @@ void segAlgorithm::setParaForMethod() {
 		beta = 0.5;
 	}
 	else if (methodType == "hgg") {
-		scale = 40000;
+		scale = 100000;
 		theta = 0.6;
 		alpha = 0.8;
 		beta = 0.5;
@@ -88,6 +98,10 @@ void segAlgorithm::splitSeed(Mat &seed, Mat &fseed, Mat &bseed) {
 		fseed.data[i] = (seed.data[i] == 255) ? 255 : 0;
 		bseed.data[i] = (seed.data[i] == 0) ? 255 : 0;
 	}
+
+	//imshow("fseed", fseed);
+	//imshow("bseed", bseed);
+	//waitKey(0);
 }
 
 /*------------------------- graphcut on the heighest level -----------------------------*/
@@ -98,6 +112,9 @@ void segAlgorithm::heighestGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 		cout << "new failed" << endl;
 	}
 
+	//imshow("seed", seed);
+	//waitKey(0);
+
 	Mat fseed, bseed;
 	Mat bgeos = Mat(seed.size(), CV_8UC1);
 	Mat fgeos = Mat(seed.size(), CV_8UC1);
@@ -107,6 +124,10 @@ void segAlgorithm::heighestGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 	splitSeed(seed, fseed, bseed);
 	fast_marching(dep, fseed, fgeos);
 	fast_marching(dep, bseed, bgeos);
+	
+	//imshow("fgeos", fgeos);
+	//imshow("bgeos", bgeos);
+	//waitKey(0);
 
 	int numNodes = img.rows*img.cols;
 	int numEdges = 4 * numNodes - img.rows - img.cols;
@@ -117,7 +138,6 @@ void segAlgorithm::heighestGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 		for (int j = 0; j < img.cols; ++j) {
 			int p = i*img.cols + j;
 			int x = K*img.data[3 * p] / 256 * K*K + K*img.data[3 * p + 1] / 256 * K + K*img.data[3 * p + 2] / 256;
-			int csum = fgModel[x] + bgModel[x];
 		}
 	}
 
@@ -200,7 +220,6 @@ void segAlgorithm::middleGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 	int count = 0;
 
 	int *nodes = new int[numNodes];
-	Mat out = Mat(seed.size(), CV_8UC1);
 
 	//t-link
 	for (int i = 0; i<img.rows; ++i)
@@ -210,7 +229,6 @@ void segAlgorithm::middleGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 			int p = i*img.cols + j;
 
 			nodes[p] = -1;
-			out.data[p] = midColor;
 
 			if (seed.data[p] != 255 && seed.data[p] != 0)
 			{
@@ -219,69 +237,21 @@ void segAlgorithm::middleGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 
 				if (j != 0 && seed.data[p - 1] != midColor)
 				{
-					out.data[p] = seed.data[p - 1];
 					(seed.data[p - 1] == 0) ? graph->add_tweights(count, 0, 10000) : graph->add_tweights(count, 10000, 0);
 				}
 				else if (j != img.cols - 1 && seed.data[p + 1] != midColor)
 				{
-					out.data[p] = seed.data[p + 1];
 					(seed.data[p + 1] == 0) ? graph->add_tweights(count, 0, 10000) : graph->add_tweights(count, 10000, 0);
 				}
 				else if (i != 0 && seed.data[p - img.cols] != midColor)
 				{
-					out.data[p] = seed.data[p - img.cols];
 					(seed.data[p - img.cols] == 0) ? graph->add_tweights(count, 0, 10000) : graph->add_tweights(count, 10000, 0);
 				}
 				else if (i != img.rows - 1 && seed.data[p + img.cols] != midColor)
 				{
-					out.data[p] = seed.data[p + img.cols];
 					(seed.data[p + img.cols] == 0) ? graph->add_tweights(count, 0, 10000) : graph->add_tweights(count, 10000, 0);
 				}
 				++count;
-			}
-		}
-	}
-
-
-	cvtColor(out, out, CV_GRAY2BGR);
-
-	for (int i = 0; i != img.rows*img.cols; ++i)
-	{
-		if (nodes[i] == -1)
-		{
-			if (seed.data[i] == 255)
-			{
-				out.data[3 * i] = 0;
-				out.data[3 * i + 1] = 0;
-				out.data[3 * i + 2] = 255;
-			}
-			else
-			{
-				out.data[3 * i] = 255;
-				out.data[3 * i + 1] = 0;
-				out.data[3 * i + 2] = 0;
-			}
-		}
-
-		else
-		{
-			if (out.data[3 * i] == 255)
-			{
-				out.data[3 * i] = 0;
-				out.data[3 * i + 1] = 0;
-				out.data[3 * i + 2] = 0;
-			}
-			else if (out.data[3 * i] == 0)
-			{
-				out.data[3 * i] = 0;
-				out.data[3 * i + 1] = 0;
-				out.data[3 * i + 2] = 0;
-			}
-			else
-			{
-				out.data[3 * i] = 0;
-				out.data[3 * i + 1] = 255;
-				out.data[3 * i + 2] = 255;
 			}
 		}
 	}
@@ -339,7 +309,7 @@ double segAlgorithm::RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds) 
 	Mat img = imread(imgPath);
 	Mat dep = imread(depPath, 0);
 
-	/*for (int i = 0; i != img.cols*img.rows; ++i)
+	for (int i = 0; i != img.cols*img.rows; ++i)
 	{
 		if (seeds.data[i] < 50)
 			seeds.data[i] = 0;
@@ -347,7 +317,7 @@ double segAlgorithm::RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds) 
 			seeds.data[i] = 255;
 		else
 			seeds.data[i] = midColor;
-	}*/
+	}
 	segImage = Mat(img.size(), CV_8UC1);
 	/*------------------------- multiscale level initialization -----------------------------*/
 
@@ -390,6 +360,8 @@ double segAlgorithm::RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds) 
 	morphologyEx(hSeg, hSeg, cv::MORPH_CLOSE, Mat());
 	morphologyEx(hSeg, hSeg, cv::MORPH_OPEN, Mat());
 
+	//imshow("high", hSeg);
+	//waitKey(0);
 	/*------------------------- refined graphcut on middle level -----------------------------*/
 	for (int l = levelNum - 1; l != 0; --l)
 	{
@@ -418,6 +390,9 @@ double segAlgorithm::RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds) 
 
 		middleGraphcut(curImg, curDep, curSeed, curSeg);
 		morphologyEx(curSeg, curSeg, cv::MORPH_OPEN, Mat());
+
+		//imshow("middle", curSeg);
+		//waitKey(0);
 
 		hSeg = curSeg;
 		hSize = curSize;
@@ -449,8 +424,8 @@ double segAlgorithm::RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds) 
 	morphologyEx(segImage, segImage, cv::MORPH_CLOSE, Mat());
 	morphologyEx(segImage, segImage, cv::MORPH_OPEN, Mat());
 
-	imshow("test", segImage);
-	waitKey(0);
+	//imshow("result", segImage);
+	//waitKey(0);
 
 	return (double)(end.QuadPart - start.QuadPart) / (double)nFreq.QuadPart;
 }
