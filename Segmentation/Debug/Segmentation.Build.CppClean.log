@@ -11,12 +11,12 @@ e:\project\qt\segmentation\segmentation\debug\moc_segmentation.obj
 e:\project\qt\segmentation\segmentation\debug\moc_scribblearea.obj
 e:\project\qt\segmentation\segmentation\debug\moc_interactionsegment.obj
 e:\project\qt\segmentation\segmentation\debug\qrc_segmentation.obj
-e:\project\qt\segmentation\segmentation\generatedfiles\debug\moc_segmentation.cpp
 e:\project\qt\segmentation\segmentation\generatedfiles\ui_segmentation.h
-e:\project\qt\segmentation\segmentation\generatedfiles\debug\moc_interactionsegment.cpp
 e:\project\qt\segmentation\segmentation\generatedfiles\qrc_segmentation.cpp
-e:\project\qt\segmentation\segmentation\generatedfiles\ui_interactionsegment.h
 e:\project\qt\segmentation\segmentation\generatedfiles\debug\moc_scribblearea.cpp
+e:\project\qt\segmentation\segmentation\generatedfiles\debug\moc_interactionsegment.cpp
+e:\project\qt\segmentation\segmentation\generatedfiles\ui_interactionsegment.h
+e:\project\qt\segmentation\segmentation\generatedfiles\debug\moc_segmentation.cpp
 e:\project\qt\segmentation\win32\debug\segmentation.ilk
 e:\project\qt\segmentation\win32\debug\segmentation.exe
 e:\project\qt\segmentation\win32\debug\segmentation.pdb

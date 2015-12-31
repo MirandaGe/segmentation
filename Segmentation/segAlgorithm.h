@@ -23,6 +23,7 @@ public:
 	void setSeedImage(Mat &img);
 	double getSegTime() { return segTime; }
 	Mat getSegImage() { return segImage; }
+	Mat getShowImage() { return showImage; }
 	void segmentation();
 
 private:
@@ -31,6 +32,7 @@ private:
 	string methodType;
 	Mat seedImage;
 	Mat segImage;
+	Mat showImage;
 	double segTime;
 
 	void setParaForMethod();
@@ -42,4 +44,7 @@ private:
 	void heighestGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg);
 	void middleGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg);
 	double RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds);
+	Mat mergeResult(Mat &img1, Mat &img2);
+	Mat grey2color(Mat &img);
+	void grey2color(Mat &img, Mat &dst);
 };

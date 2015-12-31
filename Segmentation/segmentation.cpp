@@ -107,7 +107,8 @@ void Segmentation::on_resultButton_clicked() {
 }
 
 void Segmentation::showImageOnLabel(QLabel *label, QString &imgPath, QImage &objImage) {
-	objImage = QImage(imgPath);
+	if (!imgPath.isEmpty())
+		objImage = QImage(imgPath);
 	double wRatio(label->width() / (double)objImage.width()), hRatio(label->height() / (double)objImage.height());
 	double ratio(wRatio < hRatio ? wRatio : hRatio);
 	label->setPixmap(QPixmap::fromImage(objImage.scaled(objImage.width()*ratio, objImage.height()*ratio)));
@@ -124,6 +125,9 @@ void Segmentation::on_segmentButton_clicked() {
 
 	initializeDialog();
 	segDialog->exec();
+
+	showImageOnLabel(ui.seedImage, QString(), segDialog->ui.ScribbleWidget->seedImage);
+	showImageOnLabel(ui.resultImage, QString(), segDialog->ui.ScribbleWidget->segImage);
 }
 
 void Segmentation::on_saveButton_clicked() {

@@ -101,11 +101,6 @@ void ScribbleArea::drawLineTo(const QPoint &endPoint) {
 	lastPoint = endPoint;
 }
 
-void ScribbleArea::updateAfterSeg(QImage &newImage) {
-	image = newImage;
-	update();
-}
-
 void ScribbleArea::setMethod(QString &str) {
 	cout << "method type is " << str.toStdString() << endl;
 	method = str;
@@ -121,10 +116,12 @@ void ScribbleArea::segment() {
 	seg.setDepthPath(depthPath.toStdString());
 	seg.setMethodType(method.toStdString());
 	seg.setSeedImage(QImage2CvMat(seedImage));
+
 	seg.segmentation();
-	segImage = cvMat2QImage(seg.getSegImage());
-	segImage = segImage.convertToFormat(QImage::Format_RGB888);
-	updateAfterSeg(segImage);
+
+	segImage = cvMat2QImage(seg.getSegImage()).convertToFormat(QImage::Format_RGB32);
+	image = cvMat2QImage(seg.getShowImage());
+	update();
 }
 
 QImage ScribbleArea::cvMat2QImage(const cv::Mat &inMat) {

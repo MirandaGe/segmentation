@@ -54,8 +54,7 @@ private:
 	bool scribbling;
 	int myPenWidth;
 	QColor myPenColor;
-	QImage image; // show image pointer
-	QImage mixImage; // show image
+	QImage image; // show image
 	QPoint lastPoint;
 	QString imagePath; // path of initial image
 	QString depthPath;

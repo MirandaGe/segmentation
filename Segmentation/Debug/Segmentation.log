@@ -1,2 +1,4 @@
-﻿  segAlgorithm.cpp
+﻿  interactionsegment.cpp
+  segmentation.cpp
+  Generating Code...
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe

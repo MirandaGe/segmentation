@@ -59,7 +59,7 @@ public:
         ScribbleWidget = new ScribbleArea(InteractionSegment);
         ScribbleWidget->setObjectName(QStringLiteral("ScribbleWidget"));
 
-        verticalLayout->addWidget(ScribbleWidget);
+        verticalLayout->addWidget(ScribbleWidget, 0, Qt::AlignHCenter);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);

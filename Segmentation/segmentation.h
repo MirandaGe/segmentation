@@ -18,7 +18,6 @@ class Segmentation : public QMainWindow
 public:
 	Segmentation(QWidget *parent = 0);
 	~Segmentation();
-	void showImageOnLabel(QLabel *label, QString &imgPath, QImage &objImage);
 
 private:
 	Ui::SegmentationClass ui;
@@ -26,6 +25,7 @@ private:
 	QString depthPath;
 	QString seedPath;
 	QString resultPath;
+	QString imgName;
 	QString curRGBName;
 	QString curDepthName;
 	QImage rgbImage;
@@ -47,6 +47,7 @@ private slots:
 	void on_resultButton_clicked();
 	void on_segmentButton_clicked();
 	void on_saveButton_clicked();
+	void showImageOnLabel(QLabel *label, QString &imgPath, QImage &objImage);
 };
 
 #endif // SEGMENTATION_H

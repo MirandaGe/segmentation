@@ -302,12 +302,13 @@ void segAlgorithm::middleGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 }
 
 /*------------------------- developed color graphcut -----------------------------*/
-double segAlgorithm::RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds) {
+double segAlgorithm::RGBDGraphcut(string &imgPath, string &depPath, Mat &seed) {
 	LARGE_INTEGER nFreq;
 	LARGE_INTEGER start, end;
 	QueryPerformanceFrequency(&nFreq);
 	Mat img = imread(imgPath);
 	Mat dep = imread(depPath, 0);
+	Mat seeds = seed.clone();
 
 	for (int i = 0; i != img.cols*img.rows; ++i)
 	{
@@ -436,4 +437,50 @@ void segAlgorithm::segmentation() {
 	segTime = RGBDGraphcut(imgPath, depthPath, seedImage);
 	cout << "RGBD Segmentation takes " << segTime << " seconds." << endl;
 	delete[] exp_table;
+
+	Mat colorSeed = grey2color(seedImage);
+	Mat colorSeg = grey2color(segImage);
+	showImage = Mat(colorSeed.size(), CV_8UC3);
+	addWeighted(imread(imgPath), 0.7, colorSeg, 0.3, 0.0, showImage);
+	grey2color(seedImage, showImage);
+	//imshow("seed", seedImage);
+	//imshow("merge", mergeResult);
+}
+
+Mat segAlgorithm::grey2color(Mat &img) {
+	Mat image = Mat(img.size(), CV_8UC3);
+	for (int i = 0; i < img.cols*img.rows; ++i)
+	{
+		if (img.data[i] == 255) {
+			image.data[3 * i] = 0;
+			image.data[3 * i + 1] = 0;
+			image.data[3 * i + 2] = 255;
+		}
+		else if (img.data[i] == 0) {
+			image.data[3 * i] = 255;
+			image.data[3 * i + 1] = 0;
+			image.data[3 * i + 2] = 0;
+		}
+		else {
+			image.data[3 * i] = midColor;
+			image.data[3 * i + 1] = midColor;
+			image.data[3 * i + 2] = midColor;
+		}
+	}
+	return image;
+}
+
+void segAlgorithm::grey2color(Mat &img, Mat &dst) {
+	for (int i = 0; i < img.cols*img.rows; ++i) {
+		if (img.data[i] == 255) {
+			dst.data[3 * i] = 0;
+			dst.data[3 * i + 1] = 0;
+			dst.data[3 * i + 2] = 255;
+		}
+		else if (img.data[i] == 0) {
+			dst.data[3 * i] = 255;
+			dst.data[3 * i + 1] = 0;
+			dst.data[3 * i + 2] = 0;
+		}
+	}
 }

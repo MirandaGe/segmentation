@@ -32,7 +32,7 @@ void InteractionSegment::on_segmentButton_clicked() {
 }
 
 void InteractionSegment::on_okButton_clicked() {
-	
+	QDialog::accept();
 }
 
 void InteractionSegment::saveImage(const QImage &img) {
