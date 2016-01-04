@@ -248,7 +248,7 @@
         <item>
          <widget class="QRadioButton" name="rgbdRadio">
           <property name="text">
-           <string>RGBD grapg cut</string>
+           <string>RGBD graph cut</string>
           </property>
          </widget>
         </item>

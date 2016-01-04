@@ -24,8 +24,8 @@ public:
 	bool saveImage(const QString &fileName, const char *fileFormat, const QImage &img);
 	void setPenColor(const QColor &newColor);
 	void setPenWidth(int newWidth);
-	void setMethod(QString &str);
-	void setDepthPath(QString &path);
+	void setMethod(const QString &str);
+	void setDepthPath(const QString &path);
 	void segment();
 
 	bool isModified() const { return modified; }

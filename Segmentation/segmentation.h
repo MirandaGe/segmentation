@@ -25,14 +25,14 @@ private:
 	QString depthPath;
 	QString seedPath;
 	QString resultPath;
-	QString imgName;
 	QString curRGBName;
 	QString curDepthName;
+	QString method;
 	QImage rgbImage;
 	QImage seedImage;
 	QImage resultImage;
 	QImage depthImage;
-	QString method;
+	
 	InteractionSegment *segDialog;
 
 	void getMethod();
@@ -47,7 +47,9 @@ private slots:
 	void on_resultButton_clicked();
 	void on_segmentButton_clicked();
 	void on_saveButton_clicked();
-	void showImageOnLabel(QLabel *label, QString &imgPath, QImage &objImage);
+	void showImageOnLabel(QLabel *label, const QString &imgPath, QImage &objImage);
+	void on_imageList_currentItemChanged();
+	bool needDepth() { return method != "gb" && method != "gc" && method != "mgc"; }
 };
 
 #endif // SEGMENTATION_H

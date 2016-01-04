@@ -35,14 +35,11 @@ void InteractionSegment::on_okButton_clicked() {
 	QDialog::accept();
 }
 
-void InteractionSegment::saveImage(const QImage &img) {
-	QString initialPath = QDir::currentPath() + "/untitled.jpg";
-
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save As"),
-		initialPath,
-		tr("Images (*.png *.xpm *.jpg)"));
-
-	if (!fileName.isEmpty()) {
-		ui.ScribbleWidget->saveImage(fileName, "JPG", img);
+bool InteractionSegment::saveImage(const QImage &img, const QString &pathName) {
+	if (!pathName.isEmpty()) {
+		return ui.ScribbleWidget->saveImage(pathName, "JPG", img);
+	}
+	else {
+		return false;
 	}
 }

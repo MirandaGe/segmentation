@@ -36,9 +36,11 @@ bool ScribbleArea::openImage(const QString &fileName) {
 bool ScribbleArea::saveImage(const QString &fileName, const char *fileFormat, const QImage &img) {
 	if (img.save(fileName, fileFormat)) {
 		modified = false;
+		cout << "success" << endl;
 		return true;
 	}
 	else {
+		cout << "fail" << endl;
 		return false;
 	}
 }
@@ -101,12 +103,12 @@ void ScribbleArea::drawLineTo(const QPoint &endPoint) {
 	lastPoint = endPoint;
 }
 
-void ScribbleArea::setMethod(QString &str) {
+void ScribbleArea::setMethod(const QString &str) {
 	cout << "method type is " << str.toStdString() << endl;
 	method = str;
 }
 
-void ScribbleArea::setDepthPath(QString &path) {
+void ScribbleArea::setDepthPath(const QString &path) {
 	depthPath = path;
 }
 

@@ -37,14 +37,18 @@ private:
 
 	void setParaForMethod();
 	void hist(Mat& img, Mat& seeds, int* fgModel, int* bgModel);
+	void depHist(Mat &dep, Mat &seed, int *fgModel, int *bgModel);
 	void ini_exp_table(int num);
 	void splitSeed(Mat &seed, Mat &fseed, Mat &bseed);
 	int EuclideanDis(int a, int b, int c) { return a*a + b*b + c*c; }
 	int square(int a) { return a*a; }
 	void heighestGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg);
 	void middleGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg);
-	double RGBDGraphcut(string &imgPath, string &depPath, Mat &seeds);
+	double gdGraphcut(string &imgPath, string &depPath, Mat &seeds);
 	Mat mergeResult(Mat &img1, Mat &img2);
 	Mat grey2color(Mat &img);
 	void grey2color(Mat &img, Mat &dst);
+	double grabcut(string &imgPath, Mat &seed);
+	double rgbdGraphcut(string &imgPath, string &depPath, Mat &seed);
+	double graphcut(string &imgPath, Mat &seed);
 };

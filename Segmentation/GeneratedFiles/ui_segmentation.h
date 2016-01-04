@@ -356,7 +356,7 @@ public:
         gbRadio->setText(QApplication::translate("SegmentationClass", "grab cut", 0));
         mgcRadio->setText(QApplication::translate("SegmentationClass", "multi-level graph cut", 0));
         gddRadio->setText(QApplication::translate("SegmentationClass", "geodesic distance depth", 0));
-        rgbdRadio->setText(QApplication::translate("SegmentationClass", "RGBD grapg cut", 0));
+        rgbdRadio->setText(QApplication::translate("SegmentationClass", "RGBD graph cut", 0));
         ggRadio->setText(QApplication::translate("SegmentationClass", "GG", 0));
         hggRadio->setText(QApplication::translate("SegmentationClass", "HGG", 0));
         timeLabel->setText(QApplication::translate("SegmentationClass", "Average Time per Interaction:", 0));
