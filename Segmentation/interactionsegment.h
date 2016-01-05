@@ -5,9 +5,9 @@
 #include <qdir.h>
 #include <qfiledialog.h>
 #include "ui_interactionsegment.h"
-#include <iostream>
+//#include <iostream>
 
-using namespace std;
+//using namespace std;
 
 class InteractionSegment : public QDialog
 {

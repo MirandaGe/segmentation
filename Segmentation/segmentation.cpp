@@ -47,8 +47,8 @@ void Segmentation::openDepthImage() {
 		curDepthName = imgName.right(imgName.length() - splitIndex - 1);
 		depthPath = imgName.left(splitIndex + 1);
 		showImageOnLabel(ui.depthImage, imgName, depthImage);
-		cout << curDepthName.toStdString() << endl;
-		cout << depthPath.toStdString() << endl;
+		//cout << curDepthName.toStdString() << endl;
+		//cout << depthPath.toStdString() << endl;
 	}
 	if (!curRGBName.isEmpty()) {
 		if (curDepthName != curRGBName)
@@ -67,8 +67,8 @@ void Segmentation::openRGBImage() {
 		curRGBName = imgName.right(imgName.length() - splitIndex - 1);
 		rgbPath = imgName.left(splitIndex + 1);
 		showImageOnLabel(ui.RGBImage, imgName, rgbImage);
-		cout << curRGBName.toStdString() << endl;
-		cout << rgbPath.toStdString() << endl;
+		//cout << curRGBName.toStdString() << endl;
+		//cout << rgbPath.toStdString() << endl;
 	}
 	if (!curDepthName.isEmpty()) {
 		if (curDepthName != curRGBName)
@@ -83,7 +83,7 @@ void Segmentation::openDepthPath() {
 	}
 	else {
 		depthPath = curPath + "/";
-		cout << depthPath.toStdString() << endl;
+		//cout << depthPath.toStdString() << endl;
 	}
 }
 
@@ -106,7 +106,7 @@ void Segmentation::openRGBPath() {
 	}
 	else {
 		rgbPath = curPath + "/";
-		cout << rgbPath.toStdString() << endl;
+		//cout << rgbPath.toStdString() << endl;
 	}
 }
 
@@ -131,7 +131,7 @@ void Segmentation::on_seedButton_clicked() {
 	else {
 		seedPath = curPath + "/";
 		ui.seedPathEdit->setText(seedPath);
-		cout << seedPath.toStdString() << endl;
+		//cout << seedPath.toStdString() << endl;
 	}
 }
 
@@ -143,7 +143,7 @@ void Segmentation::on_resultButton_clicked() {
 	else {
 		resultPath = curPath + "/";
 		ui.resultPathEdit->setText(resultPath);
-		cout << resultPath.toStdString() << endl;
+		//cout << resultPath.toStdString() << endl;
 	}
 }
 
@@ -158,6 +158,8 @@ void Segmentation::showImageOnLabel(QLabel *label, const QString &imgPath, QImag
 }
 
 void Segmentation::on_segmentButton_clicked() {
+	segDialog->ui.ScribbleWidget->clearTime();
+
 	getMethod();
 	if(method.isEmpty()) {
 		QMessageBox::warning(this, tr("Method"), tr("Please select a method first!"));
@@ -167,6 +169,7 @@ void Segmentation::on_segmentButton_clicked() {
 	initializeDialog();
 	segDialog->exec();
 
+	ui.timeLineEdit->setText(QString::number(segDialog->ui.ScribbleWidget->getSegTime()));
 	showImageOnLabel(ui.seedImage, QString(), segDialog->ui.ScribbleWidget->seedImage);
 	showImageOnLabel(ui.resultImage, QString(), segDialog->ui.ScribbleWidget->segImage);
 }
@@ -186,31 +189,31 @@ void Segmentation::on_saveButton_clicked() {
 
 void Segmentation::getMethod() {
 	if (ui.gbRadio->isChecked()) {
-		cout << "Grabcut is selected." << endl;
+		//cout << "Grabcut is selected." << endl;
 		method = "gb";
 	}
 	else if (ui.gcRadio->isChecked()) {
-		cout << "graphcut is selected." << endl;
+		//cout << "graphcut is selected." << endl;
 		method = "gc";
 	}
 	else if (ui.gddRadio->isChecked()) {
-		cout << "gdd is selected." << endl;
+		//cout << "gdd is selected." << endl;
 		method = "gdd";
 	}
 	else if (ui.ggRadio->isChecked()) {
-		cout << "GG is selected." << endl;
+		//cout << "GG is selected." << endl;
 		method = "gg";
 	}
 	else if (ui.hggRadio->isChecked()) {
-		cout << "HGG is selected." << endl;
+		//cout << "HGG is selected." << endl;
 		method = "hgg";
 	}
 	else if (ui.mgcRadio->isChecked()) {
-		cout << "MGC is selected." << endl;
+		//cout << "MGC is selected." << endl;
 		method = "mgc";
 	}
 	else if (ui.rgbdRadio->isChecked()) {
-		cout << "RGBD is selected." << endl;
+		//cout << "RGBD is selected." << endl;
 		method = "rgbd";
 	}
 }

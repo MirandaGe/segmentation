@@ -1,2 +1,5 @@
-﻿  segAlgorithm.cpp
+﻿maxflow.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'maxflow.obj' or at 'E:\Project\Qt\Segmentation\Win32\Debug\vc120.pdb'; linking object as if no debug info
+graph.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'graph.obj' or at 'E:\Project\Qt\Segmentation\Win32\Debug\vc120.pdb'; linking object as if no debug info
+geos.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'geos.obj' or at 'E:\Project\Qt\Segmentation\Win32\Debug\vc120.pdb'; linking object as if no debug info
+qrc_segmentation.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'qrc_segmentation.obj' or at 'E:\Project\Qt\Segmentation\Win32\Debug\vc120.pdb'; linking object as if no debug info
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe

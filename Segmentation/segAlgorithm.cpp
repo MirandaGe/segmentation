@@ -1,13 +1,14 @@
 #include "segAlgorithm.h"
 
-int K = 10;
-int step = 2;
+const int K = 10;
+const int step = 2;
+const int lambda = 5;
+
 double *exp_table = NULL;
 int scale = 100000;
 int midColor = 128;
 double alpha = 0.8;
 double beta = 0.5;
-int lambda = 5;
 double theta = 0.6;//RGB
 
 segAlgorithm::segAlgorithm() {
@@ -31,11 +32,13 @@ void segAlgorithm::setSeedImage(Mat &img) {
 
 void segAlgorithm::setParaForMethod() {
 	if (methodType == "mgc") {
+		scale = 50000;
 		theta = 1;
 		alpha = 0;
 		beta = 0;
 	}
 	else if (methodType == "gdd") {
+		scale = INT_MAX;
 		theta = 0;
 		alpha = 1;
 		beta = 1;
@@ -53,9 +56,9 @@ void segAlgorithm::setParaForMethod() {
 		beta = 0.5;
 	}
 	else if (methodType == "rgbd") {
+		scale = INT_MAX;
 		alpha = 0.5;
 		beta = 0.5;
-		lambda = 5;
 		theta = 0.5;
 	}/*
 	else if (methodType == "gc") {
@@ -137,7 +140,7 @@ void segAlgorithm::heighestGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 	int* fgModel = new int[K*K*K];
 	int* bgModel = new int[K*K*K];
 	if (bgModel == NULL) {
-		cout << "new failed" << endl;
+		//cout << "new failed" << endl;
 	}
 
 	//imshow("seed", seed);
@@ -155,21 +158,10 @@ void segAlgorithm::heighestGraphcut(Mat& img, Mat &dep, Mat& seed, Mat &seg) {
 		fast_marching(dep, bseed, bgeos);
 	}
 	
-	//imshow("fgeos", fgeos);
-	//imshow("bgeos", bgeos);
-	//waitKey(0);
-
 	int numNodes = img.rows*img.cols;
 	int numEdges = 4 * numNodes - img.rows - img.cols;
 	GraphType *graph = new GraphType(numNodes, numEdges);
 	graph->add_node(numNodes);
-
-	/*for (int i = 0; i < img.rows; ++i) {
-		for (int j = 0; j < img.cols; ++j) {
-			int p = i*img.cols + j;
-			int x = K*img.data[3 * p] / 256 * K*K + K*img.data[3 * p + 1] / 256 * K + K*img.data[3 * p + 2] / 256;
-		}
-	}*/
 
 	for (int i = 0; i<img.rows; ++i) {
 		for (int j = 0; j<img.cols; ++j)
@@ -363,7 +355,7 @@ double segAlgorithm::gdGraphcut(string &imgPath, string &depPath, Mat &seed) {
 		pixels /= step*step;
 		++levelNum;
 	}
-	cout << "level = " << levelNum << endl;
+	//cout << "level = " << levelNum << endl;
 
 	/*------------------------- original graphcut on highest level -----------------------------*/
 
@@ -394,8 +386,6 @@ double segAlgorithm::gdGraphcut(string &imgPath, string &depPath, Mat &seed) {
 	morphologyEx(hSeg, hSeg, cv::MORPH_CLOSE, Mat());
 	morphologyEx(hSeg, hSeg, cv::MORPH_OPEN, Mat());
 
-	//imshow("high", hSeg);
-	//waitKey(0);
 	/*------------------------- refined graphcut on middle level -----------------------------*/
 	for (int l = levelNum - 1; l != 0; --l)
 	{
@@ -424,9 +414,6 @@ double segAlgorithm::gdGraphcut(string &imgPath, string &depPath, Mat &seed) {
 
 		middleGraphcut(curImg, curDep, curSeed, curSeg);
 		morphologyEx(curSeg, curSeg, cv::MORPH_OPEN, Mat());
-
-		//imshow("middle", curSeg);
-		//waitKey(0);
 
 		hSeg = curSeg;
 		hSize = curSize;
@@ -458,21 +445,23 @@ double segAlgorithm::gdGraphcut(string &imgPath, string &depPath, Mat &seed) {
 	morphologyEx(segImage, segImage, cv::MORPH_CLOSE, Mat());
 	morphologyEx(segImage, segImage, cv::MORPH_OPEN, Mat());
 
-	//imshow("result", segImage);
-	//waitKey(0);
-
 	return (double)(end.QuadPart - start.QuadPart) / (double)nFreq.QuadPart;
 }
 
 void segAlgorithm::segmentation() {
 	if (methodType == "gb")
 		segTime = grabcut(imgPath, seedImage);
+	else if (methodType == "gc")
+		segTime = graphcut(imgPath, seedImage);
 	else {
 		ini_exp_table(500);
 		setParaForMethod();
-		segTime = gdGraphcut(imgPath, depthPath, seedImage);
+		if (methodType == "rgbd")
+			segTime = rgbdGraphcut(imgPath, depthPath, seedImage);
+		else
+			segTime = gdGraphcut(imgPath, depthPath, seedImage);
 	}
-	cout << "RGBD Segmentation takes " << segTime << " seconds." << endl;
+	//cout << "RGBD Segmentation takes " << segTime << " seconds." << endl;
 
 	Mat colorSeed = grey2color(seedImage);
 	Mat colorSeg = grey2color(segImage);
@@ -566,7 +555,7 @@ double segAlgorithm::graphcut(string &imgPath, Mat &seed) {
 	int* fgModel = new int[K*K*K];
 	int* bgModel = new int[K*K*K];
 	if (bgModel == NULL) {
-		cout << "new failed" << endl;
+		//cout << "new failed" << endl;
 	}
 
 	hist(img, segImage, fgModel, bgModel);
@@ -657,7 +646,7 @@ double segAlgorithm::rgbdGraphcut(string &imgPath, string &depPath, Mat &seed) {
 	int *dfg = new int[K];
 	int *dbg = new int[K];
 	if (bgModel == NULL) {
-		cout << "new failed" << endl;
+		//cout << "new failed" << endl;
 	}
 
 	hist(img, segImage, fgModel, bgModel);

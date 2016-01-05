@@ -5,11 +5,11 @@
 #include "ui_segmentation.h"
 #include "interactionsegment.h"
 
-#include <iostream>
+//#include <iostream>
 #include <QFileDialog>
 #include <QMenubar>
 #include <QMessageBox>
-using namespace std;
+//using namespace std;
 
 class Segmentation : public QMainWindow
 {

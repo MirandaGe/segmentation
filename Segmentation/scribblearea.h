@@ -5,12 +5,12 @@
 #include <QImage>
 #include <QPoint>
 #include <QWidget>
-#include <iostream>
+//#include <iostream>
 #include "segAlgorithm.h"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/imgproc/types_c.h"
 
-using namespace std;
+//using namespace std;
 
 class ScribbleArea : public QWidget
 {
@@ -31,6 +31,8 @@ public:
 	bool isModified() const { return modified; }
 	QColor penColor() const { return myPenColor; }
 	int penWidth() const { return myPenWidth; }
+	void clearTime() { count = 0; segTime = 0; }
+	double getSegTime() { return segTime / (double)count; }
 
 	QImage seedImage; // seed image
 	QImage segImage; // segment image
@@ -53,6 +55,8 @@ private:
 	bool modified;
 	bool scribbling;
 	int myPenWidth;
+	int count;
+	double segTime;
 	QColor myPenColor;
 	QImage image; // show image
 	QPoint lastPoint;
