@@ -32,6 +32,7 @@ private:
 	QImage seedImage;
 	QImage resultImage;
 	QImage depthImage;
+	bool hasDir;
 	
 	InteractionSegment *segDialog;
 
@@ -47,9 +48,16 @@ private slots:
 	void on_resultButton_clicked();
 	void on_segmentButton_clicked();
 	void on_saveButton_clicked();
-	void showImageOnLabel(QLabel *label, const QString &imgPath, QImage &objImage);
+	void on_rgbImageAction_triggered();
+	void on_depthImageAction_triggered();
+	void on_rgbFileAction_triggered();
+	void on_depthFileAction_triggered();
 	void on_imageList_currentItemChanged();
+
+	void showImageOnLabel(QLabel *label, const QString &imgPath, QImage &objImage);
 	bool needDepth() { return method != "gb" && method != "gc" && method != "mgc"; }
+	void setDir(QString &path);
+	void clearDir();
 };
 
 #endif // SEGMENTATION_H

@@ -1,34 +1,12 @@
 #include "segmentation.h"
 
 Segmentation::Segmentation(QWidget *parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent),
+	hasDir(false)
 {
 	ui.setupUi(this);
-
-	QAction *openRGB = new QAction(QIcon(":/images/file-open"), tr("Open RGB Image"), this);
-	openRGB->setStatusTip("Open an RGB image.");
-
-	QAction *openDepth = new QAction(QIcon(":/images/file-open"), tr("open Depth Image"), this);
-	openDepth->setStatusTip("Open a depth image.");
-
-	QAction *openRGBFile = new QAction(QIcon(":/images/file-open"), tr("Open RGB Image File"), this);
-	openRGBFile->setStatusTip("Open an RGB image File Path.");
-
-	QAction *openDepthFile = new QAction(QIcon(":/images/file-open"), tr("Open Depth Image File"), this);
-	openDepthFile->setStatusTip("Open a depth image File Path.");
-
-	QMenu *file = menuBar()->addMenu(tr("File"));
-	file->addAction(openRGB);
-	file->addAction(openDepth);
-	file->addAction(openDepthFile);
-	file->addAction(openRGBFile);
 	
 	segDialog = new InteractionSegment(this);
-
-	connect(openDepth, &QAction::triggered, this, &Segmentation::openDepthImage);
-	connect(openRGB, &QAction::triggered, this, &Segmentation::openRGBImage);
-	connect(openDepthFile, &QAction::triggered, this, &Segmentation::openDepthPath);
-	connect(openRGBFile, &QAction::triggered, this, &Segmentation::openRGBPath);
 }
 
 Segmentation::~Segmentation()
@@ -36,7 +14,7 @@ Segmentation::~Segmentation()
 
 }
 
-void Segmentation::openDepthImage() {
+void Segmentation::on_depthImageAction_triggered() {
 	QString imgName = QFileDialog::getOpenFileName(this, tr("Open Depth Image"), "E:\\Image\\NJU-DS400\\depth", tr("Images (*.png *.xpm *.jpg)"));
 	if (curDepthName.isEmpty() && imgName.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any image."));
@@ -56,7 +34,7 @@ void Segmentation::openDepthImage() {
 	}
 }
 
-void Segmentation::openRGBImage() {
+void Segmentation::on_rgbImageAction_triggered() {
 	QString imgName = QFileDialog::getOpenFileName(this, tr("Open RGB Image"), "E:\\Image\\NJU-DS400\\image", tr("Images (*.png *.xpm *.jpg)"));
 	if (curRGBName.isEmpty() && imgName.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any image."));
@@ -76,21 +54,42 @@ void Segmentation::openRGBImage() {
 	}
 }
 
-void Segmentation::openDepthPath() {
+void Segmentation::on_depthFileAction_triggered() {
 	QString curPath = QFileDialog::getExistingDirectory(this, tr("Select Depth Image Path"), "E:\\Image\\NJU-DS400\\depth", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	if (depthPath.isEmpty() && curPath.isEmpty()) {
 		QMessageBox::warning(this, tr("Path"), tr("You did not select any path."));
 	}
 	else {
+		if (rgbPath.isEmpty())
+			setDir(curPath);
 		depthPath = curPath + "/";
 		//cout << depthPath.toStdString() << endl;
 	}
 }
 
-void Segmentation::openRGBPath() {
+void Segmentation::on_rgbFileAction_triggered() {
 	QString curPath = QFileDialog::getExistingDirectory(this, tr("Select RGB Image Path"), "E:\\Image\\NJU-DS400\\image", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
-	QDir dir(curPath);
+	if (rgbPath.isEmpty() && curPath.isEmpty()) {
+		QMessageBox::warning(this, tr("Path"), tr("You did not select any path."));
+	}
+	else {
+		if (!rgbPath.isEmpty()) {
+			clearDir();
+			depthPath.clear();
+			rgbPath.clear();
+			curDepthName.clear();
+			curRGBName.clear();
+		}
+		setDir(curPath);
+		rgbPath = curPath + "/";
+		//cout << rgbPath.toStdString() << endl;
+	}
+}
+
+/* according to the given path, show image name list on ui.imageList*/
+void Segmentation::setDir(QString &path) {
+	QDir dir(path);
 	QStringList filter;
 	filter << "*.jpg" << "*.png";
 	dir.setNameFilters(filter);
@@ -98,16 +97,16 @@ void Segmentation::openRGBPath() {
 	for (int i = 0; i < fileInfo.length(); ++i) {
 		QString str = fileInfo.at(i).fileName();
 		QListWidgetItem *item = new QListWidgetItem(str, ui.imageList);
-		//item->setData(Qt::UserRole, str);
 	}
+	//ui.imageList->setCurrentRow(0);
 
-	if (rgbPath.isEmpty() && curPath.isEmpty()) {
-		QMessageBox::warning(this, tr("Path"), tr("You did not select any path."));
-	}
-	else {
-		rgbPath = curPath + "/";
-		//cout << rgbPath.toStdString() << endl;
-	}
+	hasDir = static_cast<bool>(fileInfo.length());
+}
+
+/* clear the image name list on ui.imageList */
+void Segmentation::clearDir() {
+	ui.imageList->clear();
+	hasDir = false;
 }
 
 void Segmentation::on_imageList_currentItemChanged() {
@@ -115,10 +114,11 @@ void Segmentation::on_imageList_currentItemChanged() {
 
 	if (curItem) {
 		curRGBName = curItem->text();
-		showImageOnLabel(ui.RGBImage, rgbPath + curRGBName, depthImage);
-		if (needDepth() && !depthPath.isEmpty()) {
+		if (!rgbPath.isEmpty())
+			showImageOnLabel(ui.RGBImage, rgbPath + curRGBName, rgbImage);
+		if (!depthPath.isEmpty()) {
 			curDepthName = curRGBName;
-			showImageOnLabel(ui.depthImage, depthPath + curDepthName, rgbImage);
+			showImageOnLabel(ui.depthImage, depthPath + curDepthName, depthImage);
 		}
 	}
 }
@@ -147,6 +147,7 @@ void Segmentation::on_resultButton_clicked() {
 	}
 }
 
+/* show image on the label and initialize objImage using given imagePath. if imagePath is empty, using data of objImage*/
 void Segmentation::showImageOnLabel(QLabel *label, const QString &imgPath, QImage &objImage) {
 	if (!imgPath.isEmpty())
 		objImage = QImage(imgPath);
@@ -218,6 +219,7 @@ void Segmentation::getMethod() {
 	}
 }
 
+/* send RGB image name, depth image name and method to segDialog */
 void Segmentation::initializeDialog() {
 	segDialog->ui.ScribbleWidget->openImage(rgbPath + curRGBName);
 	segDialog->ui.ScribbleWidget->setMethod(method);

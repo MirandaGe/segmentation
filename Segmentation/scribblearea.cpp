@@ -128,6 +128,7 @@ void ScribbleArea::segment() {
 	update();
 }
 
+/* convert Mat to QImage, return the converted image */
 QImage ScribbleArea::cvMat2QImage(const cv::Mat &inMat) {
 	switch (inMat.type()) {
 		// 8-bit, 4 channel
@@ -164,6 +165,7 @@ QImage ScribbleArea::cvMat2QImage(const cv::Mat &inMat) {
 	return QImage();
 }
 
+/* convert QImage to cv Mat, return the converted image */
 cv::Mat ScribbleArea::QImage2CvMat(const QImage &inImage, bool inCloneImageData) {
 	switch (inImage.format()) {
 		// 8-bit, 4 channel

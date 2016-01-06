@@ -91,6 +91,7 @@ void segAlgorithm::hist(Mat& img, Mat& seeds, int* fgModel, int* bgModel) {
 		}
 }
 
+/* hist of depth color space as a fourth channel */
 void segAlgorithm::depHist(Mat &dep, Mat &seed, int *fgModel, int *bgModel) {
 	memset(fgModel, 0, sizeof(int)*K);
 	memset(bgModel, 0, sizeof(int)*K);

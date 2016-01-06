@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>929</width>
-    <height>632</height>
+    <height>642</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -343,14 +343,45 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="OpenRGB">
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>929</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="rgbFileAction"/>
+    <addaction name="depthFileAction"/>
+    <addaction name="separator"/>
+    <addaction name="rgbImageAction"/>
+    <addaction name="depthImageAction"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <action name="rgbImageAction">
    <property name="text">
-    <string>open RGB</string>
+    <string>Open RGB Image</string>
    </property>
   </action>
-  <action name="OpenDepth">
+  <action name="depthImageAction">
    <property name="text">
-    <string>open Depth</string>
+    <string>Open Depth Image</string>
+   </property>
+  </action>
+  <action name="rgbFileAction">
+   <property name="text">
+    <string>Open RGB Image File</string>
+   </property>
+  </action>
+  <action name="depthFileAction">
+   <property name="text">
+    <string>Open Depth Image File</string>
    </property>
   </action>
  </widget>

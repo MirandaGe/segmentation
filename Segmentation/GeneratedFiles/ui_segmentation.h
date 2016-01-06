@@ -20,6 +20,8 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
@@ -33,8 +35,10 @@ QT_BEGIN_NAMESPACE
 class Ui_SegmentationClass
 {
 public:
-    QAction *OpenRGB;
-    QAction *OpenDepth;
+    QAction *rgbImageAction;
+    QAction *depthImageAction;
+    QAction *rgbFileAction;
+    QAction *depthFileAction;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout_11;
@@ -78,16 +82,22 @@ public:
     QPushButton *saveButton;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QMenuBar *menuBar;
+    QMenu *menuFile;
 
     void setupUi(QMainWindow *SegmentationClass)
     {
         if (SegmentationClass->objectName().isEmpty())
             SegmentationClass->setObjectName(QStringLiteral("SegmentationClass"));
-        SegmentationClass->resize(929, 632);
-        OpenRGB = new QAction(SegmentationClass);
-        OpenRGB->setObjectName(QStringLiteral("OpenRGB"));
-        OpenDepth = new QAction(SegmentationClass);
-        OpenDepth->setObjectName(QStringLiteral("OpenDepth"));
+        SegmentationClass->resize(929, 642);
+        rgbImageAction = new QAction(SegmentationClass);
+        rgbImageAction->setObjectName(QStringLiteral("rgbImageAction"));
+        depthImageAction = new QAction(SegmentationClass);
+        depthImageAction->setObjectName(QStringLiteral("depthImageAction"));
+        rgbFileAction = new QAction(SegmentationClass);
+        rgbFileAction->setObjectName(QStringLiteral("rgbFileAction"));
+        depthFileAction = new QAction(SegmentationClass);
+        depthFileAction->setObjectName(QStringLiteral("depthFileAction"));
         centralWidget = new QWidget(SegmentationClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -330,6 +340,19 @@ public:
         statusBar = new QStatusBar(SegmentationClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         SegmentationClass->setStatusBar(statusBar);
+        menuBar = new QMenuBar(SegmentationClass);
+        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 929, 23));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
+        SegmentationClass->setMenuBar(menuBar);
+
+        menuBar->addAction(menuFile->menuAction());
+        menuFile->addAction(rgbFileAction);
+        menuFile->addAction(depthFileAction);
+        menuFile->addSeparator();
+        menuFile->addAction(rgbImageAction);
+        menuFile->addAction(depthImageAction);
 
         retranslateUi(SegmentationClass);
 
@@ -339,8 +362,10 @@ public:
     void retranslateUi(QMainWindow *SegmentationClass)
     {
         SegmentationClass->setWindowTitle(QApplication::translate("SegmentationClass", "Segmentation", 0));
-        OpenRGB->setText(QApplication::translate("SegmentationClass", "open RGB", 0));
-        OpenDepth->setText(QApplication::translate("SegmentationClass", "open Depth", 0));
+        rgbImageAction->setText(QApplication::translate("SegmentationClass", "Open RGB Image", 0));
+        depthImageAction->setText(QApplication::translate("SegmentationClass", "Open Depth Image", 0));
+        rgbFileAction->setText(QApplication::translate("SegmentationClass", "Open RGB Image File", 0));
+        depthFileAction->setText(QApplication::translate("SegmentationClass", "Open Depth Image File", 0));
         RGBLabel->setText(QApplication::translate("SegmentationClass", "RGB Image:", 0));
         depthLabel->setText(QApplication::translate("SegmentationClass", "Depth Image:", 0));
         RGBImage->setText(QString());
@@ -363,6 +388,7 @@ public:
         msLabel->setText(QApplication::translate("SegmentationClass", "ms", 0));
         segmentButton->setText(QApplication::translate("SegmentationClass", "segment", 0));
         saveButton->setText(QApplication::translate("SegmentationClass", "save", 0));
+        menuFile->setTitle(QApplication::translate("SegmentationClass", "File", 0));
     } // retranslateUi
 
 };
