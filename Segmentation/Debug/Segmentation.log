@@ -1,5 +1,22 @@
-﻿  scribblearea.cpp
+﻿  Moc'ing segmentation.h...
+  Uic'ing segmentation.ui...
+  Moc'ing scribblearea.h...
+  Moc'ing interactionsegment.h...
+  Rcc'ing segmentation.qrc...
+RCC : warning : No resources in 'E:\Project\Qt\Segmentation\Segmentation\segmentation.qrc'.
+  
+  Uic'ing interactionsegment.ui...
+  moc_interactionsegment.cpp
+  moc_scribblearea.cpp
+  moc_segmentation.cpp
+  geos.cpp
+  interactionsegment.cpp
+  main.cpp
+  graph.cpp
+  maxflow.cpp
+  scribblearea.cpp
   segAlgorithm.cpp
   segmentation.cpp
   Generating Code...
+  qrc_segmentation.cpp
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe
