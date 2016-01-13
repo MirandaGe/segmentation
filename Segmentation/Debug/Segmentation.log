@@ -19,4 +19,5 @@ RCC : warning : No resources in 'E:\Project\Qt\Segmentation\Segmentation\segment
   segmentation.cpp
   Generating Code...
   qrc_segmentation.cpp
+  LINK : E:\Project\Qt\Segmentation\Win32\Debug\\Segmentation.exe not found or not built by the last incremental link; performing full link
   Segmentation.vcxproj -> E:\Project\Qt\Segmentation\Win32\Debug\Segmentation.exe
