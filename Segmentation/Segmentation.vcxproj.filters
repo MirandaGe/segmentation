@@ -50,6 +50,36 @@
     <ClCompile Include="GeneratedFiles\qrc_segmentation.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="interactionsegment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_interactionsegment.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_interactionsegment.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="scribblearea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_scribblearea.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_scribblearea.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="geos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="maxflow-v3.02.src\graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="maxflow-v3.02.src\maxflow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="segAlgorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="segmentation.h">
@@ -61,13 +91,44 @@
     <CustomBuild Include="segmentation.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="interactionsegment.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="interactionsegment.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="scribblearea.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_segmentation.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_interactionsegment.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="maxflow-v3.02.src\block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="maxflow-v3.02.src\graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="segAlgorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Segmentation.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="maxflow-v3.02.src\CHANGES.TXT" />
+    <Text Include="maxflow-v3.02.src\README.TXT" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="maxflow-v3.02.src\instances.inc" />
   </ItemGroup>
 </Project>
